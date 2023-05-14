@@ -34,9 +34,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.8128,
-          "height": 1.397,
-          "width": 1.397
+          "drill": 2.2,
+          "height": 3.8,
+          "width": 3.8
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -173,11 +173,7 @@
       ],
       "track_widths": [
         0.0,
-        0.003871,
-        0.006452,
-        0.009677,
-        0.0508,
-        0.381
+        0.508
       ],
       "via_dimensions": [
         {
@@ -187,6 +183,10 @@
         {
           "diameter": 0.0127,
           "drill": 0.01016
+        },
+        {
+          "diameter": 3.0,
+          "drill": 2.0
         }
       ],
       "zones_allow_external_fillets": false
