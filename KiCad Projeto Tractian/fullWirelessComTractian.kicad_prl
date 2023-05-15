@@ -1,10 +1,33 @@
 {
   "board": {
-    "active_layer": 0,
-    "active_layer_preset": "",
+    "active_layer": 31,
+    "active_layer_preset": "All Layers",
     "auto_track_width": false,
     "hidden_netclasses": [],
-    "hidden_nets": [],
+    "hidden_nets": [
+      "Net-(U1-MTMS)",
+      "GND",
+      "Net-(BT1-+)",
+      "Net-(U1-RES12K)",
+      "Net-(U1-CHIP_PU)",
+      "Net-(C8-Pad1)",
+      "Net-(U1-XTAL_OUT)",
+      "Net-(U1-XTAL_IN)",
+      "Net-(U1-LNA)",
+      "DMW",
+      "DMH",
+      "VDD33",
+      "DMHD",
+      "DMSI",
+      "DMWP",
+      "DMCS",
+      "DMSO",
+      "DMCLK",
+      "Net-(AE1-A)",
+      "Net-(U6-V_{OUT})",
+      "TOUT",
+      "TMPSD"
+    ],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
     "opacity": {
@@ -64,7 +87,7 @@
       39,
       40
     ],
-    "visible_layers": "fffffff_fffffffd",
+    "visible_layers": "fffffff_ffffffff",
     "zone_display_mode": 0
   },
   "meta": {
