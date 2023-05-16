@@ -40,7 +40,7 @@ communication protocol. The routine for the SPI (by bit banging), writing, readi
 on the memory chip will be implemented by the candidate him self.
 
 
-## This version of the firmware implements the subroutine of Page Program (Write on Data Memory)
+## This version of the firmware implements the subroutine of Erase of data ()
 
 **********************************************************************************************************************************************************/
 
@@ -158,7 +158,7 @@ byte SPI_BB(byte _sendByte){
 /************************
 **** Memory Write    **** 
 *************************/
-// Writes 256 Bytes of memory per page
+// Writes 256 Bytes of memory per page (full page write)
 // 3 Bytes Address are needed as reference to start recording,
 // in the form _writeAddress[B2 B1 B0], B2 being Most Significative Byte
 
@@ -189,8 +189,8 @@ digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
 delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
 dummy = SPI_BB(PP_INSTRUCTION); // execute the Page Program instruction
 
-// sends the start page address
-for(i = 0; i<3; i++){
+// sends the start page address, Address_MSB first
+for(i = 2; i>= 0; i--){
 
   dummy = SPI_BB(_writeAddress[i]);
 
