@@ -40,8 +40,7 @@ communication protocol. The routine for the SPI (by bit banging), writing, readi
 on the memory chip will be implemented by the candidate him self.
 
 
-## This version of the firmware implements the subroutine for the SPI protocol
-on mode 0, with 8 send/read bits per loop.
+## This version of the firmware implements the subroutine of Page Program (Write on Data Memory)
 
 **********************************************************************************************************************************************************/
 
@@ -74,8 +73,16 @@ if we want to use the GPIO14 as output, we declare "pinMode(14,OUTPUT);"
 // but the principle of the challenge stands.
 #define Half_SPI_Period 3 // for f = 8MHz , T = 6us
 
-// Declaration of bit banging SPI subroutine
-byte SPI_Comm(byte _send8bitData);
+// Declaration of bit banging SPI subroutine | Mode 0 | MSB First
+byte SPI_BB(byte _send8bitData);
+
+
+
+
+
+// Declaration of the Data Memory Page Program 
+void Data_Memory_Write(byte writeByte);
+
 
 
 
@@ -90,6 +97,11 @@ void setup() {
   digitalWrite(DMCS, HIGH); // Set Slave Select to HIGH, so it is guranteed to be inactive
   digitalWrite(DMCLK, LOW); // Gurantees SCLK is set to LOW so when the COM starts the clock is on idle mode
 
+  // defitions of the Hold and WP Pins of Data Memory
+  digitalWrite(DMHD, HIGH); // sets the Hold Pin on the Data Memory to HIGH, so its inactive
+  digitalWrite(DMWP, HIGH); // sets the Write Protect Pin on the Data Memory to HIGH, so its inactive
+
+  delay(1000); // wait 1s for stabilization of whole circuit (data memory, temp sensor, etc) 
 }
 
 void loop() {
@@ -98,16 +110,17 @@ void loop() {
 }
 
 
+/************************
+********   SPI   ******** 
+*************************/
+
+
 // Bit banging SPI subroutine (mode 0) - MSB First:
-byte SPI_Comm(byte _sendByte){
+byte SPI_BB(byte _sendByte){
 
 
   byte _receivedByte = 0;
   byte  k = 0; // auxiliar couting byte var
-  digitalWrite(DMCS,LOW); // sets the slave to active mode
-  digitalWrite(DMCLK,LOW); // initialize SCLK low at idle state
-  delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
-
 
   for(k = 0x80; k != 0; k /= 2) // \frac{k}{2} shifts the kth bit to the right >>
   {
@@ -131,10 +144,73 @@ byte SPI_Comm(byte _sendByte){
       
   }
 
-  digitalWrite(DMCS,HIGH); // resets the slave to disabled
+  
   return _receivedByte; // returns the received byte
 
 }
+
+
+/*******   END   ********
+********   SPI   ******** 
+*************************/
+
+
+/************************
+**** Memory Write    **** 
+*************************/
+// Writes 256 Bytes of memory per page
+// 3 Bytes Address are needed as reference to start recording,
+// in the form _writeAddress[B2 B1 B0], B2 being Most Significative Byte
+
+void Data_Memory_Write(byte _writeAddress[3], byte _writeByte[256]){
+
+byte WREN = 0x06; // Write enable instruction (06h)
+
+byte dummy = 0; // dummy byte var as the Writing process doesn't return any data
+
+byte PP_INSTRUCTION = 0x02; // Page Program instruction 
+
+dummy = 0; // 
+int i = 0; // counting var
+
+
+// Write Enable instruction:
+digitalWrite(DMCS,LOW); // sets the slave to active mode
+digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+dummy = SPI_BB(WREN); // execute the Write Enable instruction
+digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
+delayMicroseconds(50); // 50us delay so the Page program command can be accurately interpreted after the WREN instruction
+
+
+
+digitalWrite(DMCS,LOW); // sets the slave to active mode
+digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+dummy = SPI_BB(PP_INSTRUCTION); // execute the Page Program instruction
+
+// sends the start page address
+for(i = 0; i<3; i++){
+
+  dummy = SPI_BB(_writeAddress[i]);
+
+}
+
+//sends the 256 Bytes to be stored
+for(i = 0; i<256; i++){ // runs 256 times
+  
+  dummy = SPI_BB(_writeByte[i]);
+
+} 
+digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
+
+}
+
+
+/*******   END   ********
+**** Memory Write    **** 
+*************************/
+
 
 
 
