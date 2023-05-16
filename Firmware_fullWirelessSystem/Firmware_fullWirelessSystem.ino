@@ -51,31 +51,102 @@ on mode 0, with 8 send/read bits per loop.
 
 
 
+/* AS we're using the NodeMCU 1.0 board to record the Program on ESP8266EX
+it is needed to use the GPIO's definitions for its board to match our own
+hardware. For this, we use the IO Number as the GPIO Number. For instance,
+if we want to use the GPIO14 as output, we declare "pinMode(14,OUTPUT);"
+*/
 
+// Data Memory GPIO's definitions for SPI comm:
+#define DMCS 15 // Data Memory Chip/Slave Select - Pin 13 on ESP8266EX -> (MTDO) GPIO15
+#define DMCLK 14 // Data Memory Serial Clock - Pin 9 on ESP8266EX -> (MTMS) GPIO14
+#define DMSI 13 // Data Memory SI (slave data input) (MOSI) - Pin 12 on ESP8266EX -> (MTCK) GPIO13
+#define DMSO 12 // Data Memory SO (slave data output) (MISO) - Pin 10 on ESP8266EX -> (MTDI) GPIO12
+#define DMWP 0 // Data Memory Write Protect - Pin 15 on ESP8266EX -> (GPIO0) GPIO0
+#define DMHD 2 // Data Memory Hold - Pin 14 on ESP8266EX -> (GPIO2) GPIO2
 
+// SPI delay for 8Mhz comm (Flash Data Memory operates up to 8Mhz for single IO mode)
+// For we are using bit banging data, a (way) lower frequency will be used.
+// Acording to Arduino Reference, for 'delayMicroseconds(t);' operates very accurately 
+// for a minimum valeu of t = 3 (3us). Being so, The period of the SCLK shall be 6us,
+// which leads to f = 166.666 kHz. That being said, every 3 seconds or so 500,000
+// samples of temperature will be collected. This barely has any practical uses,
+// but the principle of the challenge stands.
+#define Half_SPI_Period 3 // for f = 8MHz , T = 6us
 
+// Declaration of bit banging SPI subroutine
+byte SPI_Comm(byte _send8bitData);
 
-
-
-
-
-
-
-byte SPI_Comm(byte _send8bitData){
-
-
-
-  
-}
 
 
 
 void setup() {
-  // put your setup code here, to run once:
+  
+  // defining the 4xIO of the Data Memory SPI and some of its states
+  pinMode(DMSO, INPUT); 
+  pinMode(DMSI, OUTPUT);
+  pinMode(DMCLK, OUTPUT);
+  pinMode(DMCS, OUTPUT);
+  digitalWrite(DMCS, HIGH); // Set Slave Select to HIGH, so it is guranteed to be inactive
+  digitalWrite(DMCLK, LOW); // Gurantees SCLK is set to LOW so when the COM starts the clock is on idle mode
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+
 
 }
+
+
+// Bit banging SPI subroutine (mode 0) - MSB First:
+byte SPI_Comm(byte _sendByte){
+
+
+  byte _receivedByte = 0;
+  byte  k = 0; // auxiliar couting byte var
+  digitalWrite(DMCS,LOW); // sets the slave to active mode
+  digitalWrite(DMCLK,LOW); // initialize SCLK low at idle state
+  delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+
+
+  for(k = 0x80; k != 0; k /= 2) // \frac{k}{2} shifts the kth bit to the right >>
+  {
+
+    if ((k & _sendByte) !=0x00){ // tests if the kth send bit is 1 or 0 with the k mask and Writes the kth bit of the sending word on the MOSI PIN
+      digitalWrite(DMSI,HIGH);
+    }   
+    else {
+      digitalWrite(DMSI,LOW);
+    }
+
+    digitalWrite(DMCLK, HIGH); // Sets SCK (Clock) to HIGH so the slave reads the DMSI GPIO on rising edge of clock
+    delayMicroseconds(Half_SPI_Period); // COM delay
+    digitalWrite(DMCLK, LOW); // Sets SCK (Clock) to LOW so the slave sends the kth bit to the master
+      
+    if(digitalRead(DMSO) == HIGH){ // if the Master Input is in HIGH state (a bit has been sent), then stores this bit in the kth position of the received var
+      _receivedByte |= k ;
+    } 
+   delayMicroseconds(Half_SPI_Period); // COM delay
+   
+      
+  }
+
+  digitalWrite(DMCS,HIGH); // resets the slave to disabled
+  return _receivedByte; // returns the received byte
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
