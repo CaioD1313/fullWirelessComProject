@@ -83,6 +83,27 @@ if we want to use the GPIO14 as output, we declare "pinMode(14,OUTPUT);"
 byte Temp_Vector[256]; // records 256 sample of stables temp measurements to record on a page on Data Memory
 byte Temp_Buffer[50]; // Buffer to stores 50 samples of intantaneous Temperature readings
 
+
+// Memory Address Word
+unsigned long ADDRESS = 0x000000; // By our definition, Memory Write starts at address 0
+int _packetCount = 0; // count var for Page Program
+
+// 3Byte Memory Address
+byte _addressBytes[3];
+
+
+
+
+
+/*******************************
+*                              *
+* Declaration of Subroutines   *
+*                              *
+********************************/
+
+// Declaration of function that creates an array with the 3 addresses bytes for the Data memory
+void create_Addres_Bytes (unsigned long Address);
+
 // Declaration of the Reading of Temperature Reading Routine
 void Temp_Read(void);
 
@@ -90,11 +111,18 @@ void Temp_Read(void);
 byte SPI_BB(byte _send8bitData);
 
 
-
-
-
 // Declaration of the Data Memory Page Program 
 void Data_Memory_Write(byte writeByte);
+
+//Declaration of the Erase Chip Instruction Function
+void Memory_Erase(void);
+
+
+/********     END    ***********
+*                              *
+* Declaration of Subroutines   *
+*                              *
+********************************/
 
 
 
@@ -121,6 +149,41 @@ void setup() {
 }
 
 void loop() {
+
+ 
+
+  // First firmware assignment:
+  /**********************************************
+  *                                             *
+  * Reads 524,288 (500kB) values of temperature *
+  * and stores it on the Data Memory            *
+  *                                             *
+  ***********************************************/
+
+
+  // Writes 2048 Packets of 256Bytes of Temperature values on Data Memory
+  for(_packetCount = 0; _packetCount< 2048; _packetCount++){
+
+    Temp_Read(); // reads 256 values of temperature
+
+    create_Addres_Bytes(ADDRESS); // creates the 3Byte address from a 24bit word, to be used on data record
+
+    Data_Memory_Write(_addressBytes, Temp_Vector); // Stores 256 values (Bytes) of data (temperature) on Data Memory
+
+    ADDRESS += 0x100; // Sums 256 to the address word, for new start address
+
+  }
+
+  Memory_Erase(); // Erases entire memory chip for a new temperature recording cycle on the loop
+  ADDRESS = 0x000000; // Resets the Address to 0, for a new loop of data memory write, read, and send by WiFi.
+
+
+  /****************     END    ******************
+  *                                             *
+  * Reads 524,288 (500kB) values of temperature *
+  * and stores it on the Data Memory            *
+  *                                             *
+  ***********************************************/
 
 
 }
@@ -190,7 +253,7 @@ dummy = 0; //
 int i = 0; // counting var
 
 
-// Write Enable instruction:
+// Write Enable command:
 digitalWrite(DMCS,LOW); // sets the slave to active mode
 digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
 delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
@@ -228,26 +291,68 @@ digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
 *************************/
 
 
+/*************************
+****  Memory Erase    **** 
+*************************/
+// Erases the entire Data Memory
+void Memory_Erase(void){
+
+
+byte WREN = 0x06; // Write enable instruction (06h)
+
+byte dummy = 0; // dummy byte var as the Writing process doesn't return any data
+
+byte ERASE_INSTRUCTION = 0xC7; // Page Program instruction 
+
+dummy = 0; // 
+
+
+// Write Enable command:
+digitalWrite(DMCS,LOW); // sets the slave to active mode
+digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+dummy = SPI_BB(WREN); // execute the Write Enable instruction
+digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
+delayMicroseconds(50); // 50us delay so the Erase Chip command can be accurately interpreted after the WREN instruction
+
+
+digitalWrite(DMCS,LOW); // sets the slave to active mode
+digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+dummy = SPI_BB(ERASE_INSTRUCTION); // execute the Page Program instruction
+digitalWrite(DMCS,HIGH); // // resets the slave to disabled mode
+
+
+}
+
+
+
+/*******   END   ********
+****  Memory Erase    **** 
+*************************/
+
+
 
 
 /************************
 ****    Temp Read    **** 
 *************************/
-// Reads 50 instantaneous samples of temperature, makes the mean of it, and stores
+// Makes the reading of 256 stable temperature values to be stored on a data memory page
+// Stabilizes the instantaneous temperature read using a Moving Average Filter
 
 void Temp_Read(void){
 
-  // First 50 entries of Moving Average Filter 
+  
   int h; // counting variable for MAF
   int m; // counting variable for the Temp_Vector
   int Temp_Stable = 0; //Reading var of the ADC_Pin - Average sum starts at 0;
 
+  // First 50 entries of Moving Average Filter 
   // stores the temp samples in reverse, so the last slot contains the first reading (to be trashed later)
-  for(h = 49; h >= 0; h++){
+  for(h = 49; h >= 0; h--){
     Temp_Buffer[h] = analogRead(Temp_Sensor_ADC_Pin)/(1023*0.01); // Reads the temperature measured on ADC_Pin, in ºC.
-    if(Temp_Buffer[h] != 0){ // Normally Temp_Buffer would never be 0, but it prevents the risk off div/0 
-      Temp_Stable += Temp_Buffer[h]/50; // Calculate the mean of the Temp_Buffer
-    }
+    Temp_Stable += Temp_Buffer[h]/50; // Calculate the mean of the Temp_Buffer
+
   }
 
   Temp_Vector[0] = Temp_Stable; // saves the first stable temp read
@@ -260,10 +365,9 @@ void Temp_Read(void){
     for(h = 0; h<49; h++){
       Temp_Buffer[h+1] = Temp_Buffer[h]; // shifts the rest of the Temp_buffer to the right,starting at Temp_Buffer[1] (Temp_Buffer[0] remains the same, for now). 
     }
+
     Temp_Buffer[0] = analogRead(Temp_Sensor_ADC_Pin)/(1023*0.01) ; // Completes the vector with the new sample
-     if(Temp_Buffer[h] != 0){ // Again, preventing div/0 just for the sake of the code
     Temp_Stable += Temp_Buffer[0]/50; // Calculates the new mean with the newest sample read
-    }
     Temp_Vector[m] = Temp_Stable; // saves the new stable measure of the temperature
 
   }
@@ -275,6 +379,46 @@ void Temp_Read(void){
 /*******   END   ********
 ****    Temp Read    **** 
 *************************/
+
+
+/*******   END   ********
+**** Creates 3Byte Address  **** 
+*************************/
+
+void create_Addres_Bytes (unsigned long Address){
+
+  
+  unsigned long Aux_1 = 0; // Auxiliar var1
+  unsigned long Aux_2 = 0; // Auxiliar var2
+  unsigned long Mask = 0xF00000; // Start Mask 
+  int i; // Counting var to repeat the loop 3 times (3 byte address)
+
+  for (i = 2; i>=0; i--){
+
+  Aux_1 = Address & Mask; // Masks the MSB nibble (1st, 2nd and 3rd pairs) of the address word
+  Mask = Mask / 16; // Shifts the mask by four positions (1 nibble ->)
+  Aux_2 = Address & Mask; // Masks the LSB nibble (1st, 2nd and 3rd pairs) of the address word
+  Aux_1 = Aux_1 + Aux_2; // Sums the MSB and LSB nibbles (1st, 2nd and 3rd pairs) to be transformed into a byte sized value
+    
+  if(i != 0){
+
+    _addressBytes[i] = Aux_1 / pow(2,8*i); // Shifts the pair of nibbles (1st, 2nd pairs) to a byte sized value
+    
+    }
+    else{
+    
+      _addressBytes[i] = Aux_1; // 3rd nibble pair, already in a byte sized value
+    
+    }
+
+    Mask = Mask / 16; // Shifts the mask by four positions (1 nibble ->)
+
+  } 
+
+  
+
+
+}
 
 
 
