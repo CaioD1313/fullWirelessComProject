@@ -40,7 +40,9 @@ communication protocol. The routine for the SPI (by bit banging), writing, readi
 on the memory chip will be implemented by the candidate him self.
 
 
-## This version of the firmware implements the subroutine of Erase of data ()
+## This version of the firmware implements the Reading and storage of the temperature values
+(500kB) -> 524,288 temperature values. Also, it implements the LTI-MAF that makes
+the reading of the temp sensor stable. For simplicity and time saving, a 50 slots filter shall be used.
 
 **********************************************************************************************************************************************************/
 
@@ -73,6 +75,17 @@ if we want to use the GPIO14 as output, we declare "pinMode(14,OUTPUT);"
 // but the principle of the challenge stands.
 #define Half_SPI_Period 3 // for f = 8MHz , T = 6us
 
+
+// Temperature Sensor GPIO definition
+#define Temp_Sensor_ADC_Pin 17 // TMP36 Vout - Pin 6 on ESP8266EX -> (TOUT) ADC_in | On NodeMCU it is mapped to pin 17
+
+// Global Array to store 256 Stable Temperature Readings (later to be used on Data Memory Write)
+byte Temp_Vector[256]; // records 256 sample of stables temp measurements to record on a page on Data Memory
+byte Temp_Buffer[50]; // Buffer to stores 50 samples of intantaneous Temperature readings
+
+// Declaration of the Reading of Temperature Reading Routine
+void Temp_Read(void);
+
 // Declaration of bit banging SPI subroutine | Mode 0 | MSB First
 byte SPI_BB(byte _send8bitData);
 
@@ -100,8 +113,11 @@ void setup() {
   // defitions of the Hold and WP Pins of Data Memory
   digitalWrite(DMHD, HIGH); // sets the Hold Pin on the Data Memory to HIGH, so its inactive
   digitalWrite(DMWP, HIGH); // sets the Write Protect Pin on the Data Memory to HIGH, so its inactive
-
   delay(1000); // wait 1s for stabilization of whole circuit (data memory, temp sensor, etc) 
+
+  
+
+
 }
 
 void loop() {
@@ -214,6 +230,51 @@ digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
 
 
 
+/************************
+****    Temp Read    **** 
+*************************/
+// Reads 50 instantaneous samples of temperature, makes the mean of it, and stores
+
+void Temp_Read(void){
+
+  // First 50 entries of Moving Average Filter 
+  int h; // counting variable for MAF
+  int m; // counting variable for the Temp_Vector
+  int Temp_Stable = 0; //Reading var of the ADC_Pin - Average sum starts at 0;
+
+  // stores the temp samples in reverse, so the last slot contains the first reading (to be trashed later)
+  for(h = 49; h >= 0; h++){
+    Temp_Buffer[h] = analogRead(Temp_Sensor_ADC_Pin)/(1023*0.01); // Reads the temperature measured on ADC_Pin, in ºC.
+    if(Temp_Buffer[h] != 0){ // Normally Temp_Buffer would never be 0, but it prevents the risk off div/0 
+      Temp_Stable += Temp_Buffer[h]/50; // Calculate the mean of the Temp_Buffer
+    }
+  }
+
+  Temp_Vector[0] = Temp_Stable; // saves the first stable temp read
+
+  for(m = 1; m<256; m++){
+
+
+    Temp_Stable -= Temp_Vector[49]/50; // Withdraws the weight of the first instantaneous temp measurement
+
+    for(h = 0; h<49; h++){
+      Temp_Buffer[h+1] = Temp_Buffer[h]; // shifts the rest of the Temp_buffer to the right,starting at Temp_Buffer[1] (Temp_Buffer[0] remains the same, for now). 
+    }
+    Temp_Buffer[0] = analogRead(Temp_Sensor_ADC_Pin)/(1023*0.01) ; // Completes the vector with the new sample
+     if(Temp_Buffer[h] != 0){ // Again, preventing div/0 just for the sake of the code
+    Temp_Stable += Temp_Buffer[0]/50; // Calculates the new mean with the newest sample read
+    }
+    Temp_Vector[m] = Temp_Stable; // saves the new stable measure of the temperature
+
+  }
+
+
+  
+}
+
+/*******   END   ********
+****    Temp Read    **** 
+*************************/
 
 
 
