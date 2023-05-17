@@ -77,7 +77,8 @@ if we want to use the GPIO14 as output, we declare "pinMode(14,OUTPUT);"
 
 
 // Temperature Sensor GPIO definition
-#define Temp_Sensor_ADC_Pin 17 // TMP36 Vout - Pin 6 on ESP8266EX -> (TOUT) ADC_in | On NodeMCU it is mapped to pin 17
+#define Temp_Sensor_ADC_Pin 17 // TMP35 Vout - Pin 6 on ESP8266EX -> (TOUT) ADC_in | On NodeMCU it is mapped to pin 17
+#define Temp_Sensor_Shutdown_Pin 5 // TMP35 SHUTDOWN - Pin 24 on ESP8266EX -> (GPIO5) GPIO5
 
 // Global Array to store 256 Stable Temperature Readings (later to be used on Data Memory Write)
 byte Temp_Vector[256]; // records 256 sample of stables temp measurements to record on a page on Data Memory
@@ -90,6 +91,9 @@ int _packetCount = 0; // count var for Page Program
 
 // 3Byte Memory Address
 byte _addressBytes[3];
+
+// 1024 array for reading from data memory and sending via WiFi (total of 500 packets of 1024 bytes to be sent -> 500kB)
+byte _readData[1024];
 
 
 
@@ -111,8 +115,11 @@ void Temp_Read(void);
 byte SPI_BB(byte _send8bitData);
 
 
-// Declaration of the Data Memory Page Program 
+// Declaration of the Data Memory Page Program Function
 void Data_Memory_Write(byte writeByte);
+
+// Declaration of Data Read Function
+void Data_Memory_Read(byte _readAddress[3]);
 
 //Declaration of the Erase Chip Instruction Function
 void Memory_Erase(void);
@@ -141,7 +148,12 @@ void setup() {
   // defitions of the Hold and WP Pins of Data Memory
   digitalWrite(DMHD, HIGH); // sets the Hold Pin on the Data Memory to HIGH, so its inactive
   digitalWrite(DMWP, HIGH); // sets the Write Protect Pin on the Data Memory to HIGH, so its inactive
+
+  //definition of the SHUTDOWN pin of TMP35
+  pinMode(Temp_Sensor_Shutdown_Pin,OUTPUT);
+  
   delay(1000); // wait 1s for stabilization of whole circuit (data memory, temp sensor, etc) 
+
 
   
 
@@ -153,16 +165,19 @@ void loop() {
  
 
   // First firmware assignment:
-  /**********************************************
-  *                                             *
-  * Reads 524,288 (500kB) values of temperature *
-  * and stores it on the Data Memory            *
-  *                                             *
-  ***********************************************/
+  /*************************************************
+  *                                                *
+  * Collects 512,000 (500kB) values of temperature *
+  * and stores it on the Data Memory               *
+  *                                                *
+  *************************************************/
 
 
-  // Writes 2048 Packets of 256Bytes of Temperature values on Data Memory
-  for(_packetCount = 0; _packetCount< 2048; _packetCount++){
+  // Writes 2000 Packets of 256Bytes (500kB) of Temperature values on Data Memory
+  digitalWrite(Temp_Sensor_Shutdown_Pin,HIGH); // Enables the TMP35 to operate
+  delay(1); // little delay so the TMP35 is functional
+
+  for(_packetCount = 0; _packetCount< 2000; _packetCount++){
 
     Temp_Read(); // reads 256 values of temperature
 
@@ -174,19 +189,48 @@ void loop() {
 
   }
 
+  digitalWrite(Temp_Sensor_Shutdown_Pin,LOW); // disables the TMP35 and puts it on ultra low current comsuption mode (maximum of 0.5uA)
   Memory_Erase(); // Erases entire memory chip for a new temperature recording cycle on the loop
   ADDRESS = 0x000000; // Resets the Address to 0, for a new loop of data memory write, read, and send by WiFi.
 
 
-  /****************     END    ******************
+  /****************      END      ******************
+  *                                                *
+  * Collects 512,000 (500kB) values of temperature *
+  * and stores it on the Data Memory               *
+  *                                                *
+  *************************************************/
+
+
+  // Second firmware assignment:
+  /**********************************************
   *                                             *
-  * Reads 524,288 (500kB) values of temperature *
-  * and stores it on the Data Memory            *
+  * Reads 512,000 (500kB) values of temperature *
+  * from data memory and sends via WiFi.        *
+  *                                             *
+  ***********************************************/
+
+  // loop to read memory -> blocks of 1024 bytes
+  // address increment should be 4 times 256 (to match 1024 byte read)
+
+  /***************     END     ******************
+  *                                             *
+  * Reads 512,000 (500kB) values of temperature *
+  * from data memory and sends via WiFi.        *
   *                                             *
   ***********************************************/
 
 
 }
+
+
+
+
+
+
+
+
+
 
 
 /************************
@@ -234,6 +278,15 @@ byte SPI_BB(byte _sendByte){
 *************************/
 
 
+
+
+
+
+
+
+
+
+
 /************************
 **** Memory Write    **** 
 *************************/
@@ -243,52 +296,109 @@ byte SPI_BB(byte _sendByte){
 
 void Data_Memory_Write(byte _writeAddress[3], byte _writeByte[256]){
 
-byte WREN = 0x06; // Write enable instruction (06h)
+  byte WREN = 0x06; // Write enable instruction (06h)
 
-byte dummy = 0; // dummy byte var as the Writing process doesn't return any data
+  byte dummy = 0; // dummy byte var as the Writing process doesn't return any data
 
-byte PP_INSTRUCTION = 0x02; // Page Program instruction 
+  byte PP_INSTRUCTION = 0x02; // Page Program instruction 
 
-dummy = 0; // 
-int i = 0; // counting var
-
-
-// Write Enable command:
-digitalWrite(DMCS,LOW); // sets the slave to active mode
-digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
-delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
-dummy = SPI_BB(WREN); // execute the Write Enable instruction
-digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
-delayMicroseconds(50); // 50us delay so the Page program command can be accurately interpreted after the WREN instruction
+  dummy = 0; // 
+  int i = 0; // counting var
 
 
+  // Write Enable command:
+  digitalWrite(DMCS,LOW); // sets the slave to active mode
+  digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+  delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+  dummy = SPI_BB(WREN); // execute the Write Enable instruction
+  digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
+  delayMicroseconds(50); // 50us delay so the Page program command can be accurately interpreted after the WREN instruction 
 
-digitalWrite(DMCS,LOW); // sets the slave to active mode
-digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
-delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
-dummy = SPI_BB(PP_INSTRUCTION); // execute the Page Program instruction
 
-// sends the start page address, Address_MSB first
-for(i = 2; i>= 0; i--){
 
-  dummy = SPI_BB(_writeAddress[i]);
+  digitalWrite(DMCS,LOW); // sets the slave to active mode
+  digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+  delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+  dummy = SPI_BB(PP_INSTRUCTION); // execute the Page Program instruction
 
-}
+  // sends the start page address, Address_MSB first
+  for(i = 2; i>= 0; i--){
 
-//sends the 256 Bytes to be stored
-for(i = 0; i<256; i++){ // runs 256 times
+    dummy = SPI_BB(_writeAddress[i]);
+
+  }
+
+  //sends the 256 Bytes to be stored
+  for(i = 0; i<256; i++){ // runs 256 times
   
-  dummy = SPI_BB(_writeByte[i]);
+    dummy = SPI_BB(_writeByte[i]);
 
-} 
-digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
+  } 
+  digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
 
 }
 
 
-/*******   END   ********
-**** Memory Write    **** 
+/*******   END    ********
+**** Memory Write     **** 
 *************************/
+
+
+
+
+
+
+/*************************
+****   Memory Read    **** 
+*************************/
+// Reads 1024 Bytes of memory per call
+// 3 Bytes Address are needed as reference to start reading,
+// in the form _readAddress[B2 B1 B0], B2 being Most Significative Byte
+
+
+void Data_Memory_Read(byte _readAddress[3]){
+
+
+  byte READ_INSTRUCTION = 0x03; // Read opcode 
+
+  byte dummy = 0; // dummy byte for SI and SO
+  int i = 0; // counting var
+
+
+  digitalWrite(DMCS,LOW); // sets the slave to active mode
+  digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+  delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+
+  dummy = SPI_BB(READ_INSTRUCTION); // execute the Page Program instruction
+
+  // sends the start reading address, Address_MSB first
+  for(i = 2; i>= 0; i--){
+
+    dummy = SPI_BB(_readAddress[i]);
+
+  }
+
+  for(i = 0; i<1024; i++){
+
+    _readData[i] = SPI_BB(dummy);
+
+  }
+
+  digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
+
+
+}
+
+
+
+/*******   END    ********
+****   Memory Read    **** 
+*************************/
+
+
+
+
+
 
 
 /*************************
@@ -298,29 +408,29 @@ digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
 void Memory_Erase(void){
 
 
-byte WREN = 0x06; // Write enable instruction (06h)
+  byte WREN = 0x06; // Write enable instruction (06h)
 
-byte dummy = 0; // dummy byte var as the Writing process doesn't return any data
+  byte dummy = 0; // dummy byte var as the Writing process doesn't return any data
 
-byte ERASE_INSTRUCTION = 0xC7; // Page Program instruction 
+  byte ERASE_INSTRUCTION = 0xC7; // Page Program instruction 
 
-dummy = 0; // 
-
-
-// Write Enable command:
-digitalWrite(DMCS,LOW); // sets the slave to active mode
-digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
-delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
-dummy = SPI_BB(WREN); // execute the Write Enable instruction
-digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
-delayMicroseconds(50); // 50us delay so the Erase Chip command can be accurately interpreted after the WREN instruction
+  dummy = 0; // 
 
 
-digitalWrite(DMCS,LOW); // sets the slave to active mode
-digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
-delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
-dummy = SPI_BB(ERASE_INSTRUCTION); // execute the Page Program instruction
-digitalWrite(DMCS,HIGH); // // resets the slave to disabled mode
+  // Write Enable command:
+  digitalWrite(DMCS,LOW); // sets the slave to active mode
+  digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+  delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+  dummy = SPI_BB(WREN); // execute the Write Enable instruction
+  digitalWrite(DMCS,HIGH); // resets the slave to disabled mode
+  delayMicroseconds(50); // 50us delay so the Erase Chip command can be accurately interpreted after the WREN instruction
+
+
+  digitalWrite(DMCS,LOW); // sets the slave to active mode
+  digitalWrite(DMCLK,LOW); // initialize SCLK at idle state
+  delayMicroseconds(Half_SPI_Period); // COM delay for half of a period
+  dummy = SPI_BB(ERASE_INSTRUCTION); // execute the Page Program instruction
+  digitalWrite(DMCS,HIGH); // // resets the slave to disabled mode
 
 
 }
@@ -330,6 +440,11 @@ digitalWrite(DMCS,HIGH); // // resets the slave to disabled mode
 /*******   END   ********
 ****  Memory Erase    **** 
 *************************/
+
+
+
+
+
 
 
 
@@ -379,6 +494,10 @@ void Temp_Read(void){
 /*******   END   ********
 ****    Temp Read    **** 
 *************************/
+
+
+
+
 
 
 /*******   END   ********
