@@ -2,7 +2,7 @@
 
 ------- Author: Caio Dutra
 
-------- Date: 05-16-2023
+------- Date: 05-17-2023
 
 ##### Full Wireless Communication System Project - Tractian Firmware Eginneer Interview #####
 
@@ -36,19 +36,45 @@ library (or subroutines). A full copy of the LGLP Ver 2.1 can be seen at: https:
 
 
 For the communication between the microcontroller and the Flash Data Memory, it is used the SPI 
-communication protocol. The routine for the SPI (by bit banging), writing, reading and erasing data
-on the memory chip will be implemented by the candidate him self.
+communication protocol.
 
 
-## This version of the firmware implements the Reading and storage of the temperature values
-(500kB) -> 524,288 temperature values. Also, it implements the LTI-MAF that makes
-the reading of the temp sensor stable. For simplicity and time saving, a 50 slots filter shall be used.
+## This is the final version of the firmware (yet to be revised). 
 
 **********************************************************************************************************************************************************/
 
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
+
+
+/*******************************
+*                              *
+*           Libraries          *
+*                              *
+********************************/
+
+
+#include <ESP8266WiFi.h>
+
+WiFiClient _hostClient; // creates an instance of WifiClient for the host to be connected
+
+
+/********     END    ***********
+*                              *
+*           Libraries          *
+*                              *
+********************************/
 
 
 
+
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
+
+
+/*******************************
+*                              *
+*  Pin Constants Definitions   *
+*                              *
+********************************/
 
 
 
@@ -80,20 +106,106 @@ if we want to use the GPIO14 as output, we declare "pinMode(14,OUTPUT);"
 #define Temp_Sensor_ADC_Pin 17 // TMP35 Vout - Pin 6 on ESP8266EX -> (TOUT) ADC_in | On NodeMCU it is mapped to pin 17
 #define Temp_Sensor_Shutdown_Pin 5 // TMP35 SHUTDOWN - Pin 24 on ESP8266EX -> (GPIO5) GPIO5
 
+
+
+
+/********     END    ***********
+*                              *
+*  Pin Constants Definitions   *
+*                              *
+********************************/
+
+
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
+
+
+
+/*******************************
+*                              *
+*  Declaration of constants    *
+*                              *
+********************************/
+
+const char* SSID = "Fake_WiFi_Net_To_Connect"; // service set identifier of the AP to be connected
+
+const char* PSSWRD = "Fake_WiFi_Net_Password"; // net password of the AP to be connected
+
+const char* HOST = "192.13.14.5/temperature_log_files"; // Fake URL to send data (500kB file)
+
+const int _httpPort = 80; // HTTP Port to be used
+
+/********     END    ***********
+*                              *
+*  Declaration of constants    *
+*                              *
+********************************/
+
+
+
+
+
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
+
+
+/*******************************
+*                              *
+*    Declaration of Arrays     *
+*                              *
+********************************/
+
 // Global Array to store 256 Stable Temperature Readings (later to be used on Data Memory Write)
 byte Temp_Vector[256]; // records 256 sample of stables temp measurements to record on a page on Data Memory
 byte Temp_Buffer[50]; // Buffer to stores 50 samples of intantaneous Temperature readings
-
-
-// Memory Address Word
-unsigned long ADDRESS = 0x000000; // By our definition, Memory Write starts at address 0
-int _packetCount = 0; // count var for Page Program
 
 // 3Byte Memory Address
 byte _addressBytes[3];
 
 // 1024 array for reading from data memory and sending via WiFi (total of 500 packets of 1024 bytes to be sent -> 500kB)
 byte _readData[1024];
+
+
+/********     END    ***********
+*                              *
+*    Declaration of Arrays     *
+*                              *
+********************************/
+
+
+
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
+
+
+
+
+/*******************************
+*                              *
+*   Unislot vars Definitions   *
+*                              *
+********************************/
+
+
+// Memory Address Word
+unsigned long ADDRESS = 0x000000; // By our definition, Memory Write starts at address 0
+int _packetCount = 0; // count var for Page Program
+
+
+int _numOfTries = 0; // starts with 0 - count the number of times the station tried to connect with to host before it gives up and leads to another set of collecting tempereture values
+// int _connectionSuccess; // indicates if the connection to the host was sucessful (1) or not (0)
+
+
+int p; // count var for 500kB file (counts the number os 1024bytes packets sent to the host - total of 512,000 bytes)
+int q; //count var (parameter of _readData) for 1024 bytes to be sent
+
+/********     END    ***********
+*                              *
+*   Unislot vars Definitions   *
+*                              *
+********************************/
+
+
+
+
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
 
@@ -116,7 +228,7 @@ byte SPI_BB(byte _send8bitData);
 
 
 // Declaration of the Data Memory Page Program Function
-void Data_Memory_Write(byte writeByte);
+void Data_Memory_Write(byte _writeAddress[3], byte _writeByte[256]);
 
 // Declaration of Data Read Function
 void Data_Memory_Read(byte _readAddress[3]);
@@ -132,6 +244,7 @@ void Memory_Erase(void);
 ********************************/
 
 
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
 
@@ -151,8 +264,14 @@ void setup() {
 
   //definition of the SHUTDOWN pin of TMP35
   pinMode(Temp_Sensor_Shutdown_Pin,OUTPUT);
+
+
+  WiFi.begin(SSID,PSSWRD); // set the SSID and password to connect on the AP
+
+  while(WiFi.status() != WL_CONNECTED){} // wait until the ESP connects to the AP, otherwise doesn't proceed
+
   
-  delay(1000); // wait 1s for stabilization of whole circuit (data memory, temp sensor, etc) 
+  delay(1000); // For powering guarantees, wait 1s for stabilization of whole circuit (data memory, temp sensor, etc) 
 
 
   
@@ -163,6 +282,7 @@ void setup() {
 void loop() {
 
  
+  /* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
   // First firmware assignment:
   /*************************************************
@@ -173,10 +293,14 @@ void loop() {
   *************************************************/
 
 
-  // Writes 2000 Packets of 256Bytes (500kB) of Temperature values on Data Memory
+  Memory_Erase(); // Erases entire memory chip for a new temperature recording cycle on the loop
+  delay(10); // little delay so the Erase Chip opcde is properly executed 
+
+  
   digitalWrite(Temp_Sensor_Shutdown_Pin,HIGH); // Enables the TMP35 to operate
   delay(1); // little delay so the TMP35 is functional
 
+  // Writes 2000 Packets of 256Bytes (500kB) of Temperature values on Data Memory
   for(_packetCount = 0; _packetCount< 2000; _packetCount++){
 
     Temp_Read(); // reads 256 values of temperature
@@ -188,10 +312,9 @@ void loop() {
     ADDRESS += 0x100; // Sums 256 to the address word, for new start address
 
   }
-
   digitalWrite(Temp_Sensor_Shutdown_Pin,LOW); // disables the TMP35 and puts it on ultra low current comsuption mode (maximum of 0.5uA)
-  Memory_Erase(); // Erases entire memory chip for a new temperature recording cycle on the loop
-  ADDRESS = 0x000000; // Resets the Address to 0, for a new loop of data memory write, read, and send by WiFi.
+
+  ADDRESS = 0x000000; // Resets the Address to 0 - data memory read and transmission by WiFi.
 
 
   /****************      END      ******************
@@ -200,6 +323,8 @@ void loop() {
   * and stores it on the Data Memory               *
   *                                                *
   *************************************************/
+
+  /* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
   // Second firmware assignment:
@@ -210,8 +335,67 @@ void loop() {
   *                                             *
   ***********************************************/
 
-  // loop to read memory -> blocks of 1024 bytes
-  // address increment should be 4 times 256 (to match 1024 byte read)
+  //if ESP is disconnected from the AP, reconects it
+  if(WiFi.status() != WL_CONNECTED){
+
+    WiFi.begin(SSID,PSSWRD); // set the SSID and password to connect on the AP
+    while(WiFi.status() != WL_CONNECTED){} // wait until the ESP connects to the AP, otherwise doesn't proceed
+    delay(500); // wait a little bit so the connection is stable
+
+  }
+
+  // _hostClient.setInsecure(); // for simplicity, disables SSL certificate as we're assuming the URL to send data is in localhost server, forinstance
+  // tries to connect 10 times to the host before gives up and restart the temperature collecting process
+  while( (_hostClient.connect(HOST, _httpPort) == false) && (_numOfTries < 10)){
+
+    delay(5000);// waits five second
+    _numOfTries++; // increments the number of times that the station tried to connect to the host
+  }
+
+
+  //tests if the the connection to the host was stabilshed within less than 10 tries. If so, will send the 500kB file to the Host
+  if(_numOfTries < 10){
+
+
+    //continuously check if the host client still connected in order to send data and do not waste energy/time with RF transmissions
+    while(_hostClient.connected()){
+
+       
+      // loops 500 times to sent 500kB files (1024byte packets each time) 
+      for(p = 0; p< 500; p++){
+
+        create_Addres_Bytes(ADDRESS); // creates the 3Byte address from a 24bit word, to be used on data read
+        Data_Memory_Read(_addressBytes); // creates the 1024 byte array to be sent
+        for(q = 0; q < 1024; q++){
+
+          _hostClient.write(_readData[q]); // sends the qth byte of the pth packet of data
+
+        }
+
+        ADDRESS += 0x400; // sums 1024 to the addreess to take next four pages of temperature values
+
+      }
+
+      
+
+    }
+
+    // if the transmission ocurred successfuly (whole packt of 500kB), then closes the connection with the host
+    if(_hostClient.connected()){
+
+      _hostClient.print("GET / HTTP/1.1/\r\n"); // \r indicates an end of command, while \n creates a new line
+      _hostClient.print("Host: 192.13.14.5/temperature_log_files\r\n");
+      _hostClient.print("Connection: close\r\n\r\n");
+
+    }
+
+    WiFi.disconnect(); // turns the connection with the AP off to save energy.
+
+    _numOfTries = 0; // resets try-to-connect counting var;
+
+    ADDRESS = 0x000000; // Resets the Address to 0 - temperature log write on data memory.
+
+  }
 
   /***************     END     ******************
   *                                             *
@@ -219,6 +403,9 @@ void loop() {
   * from data memory and sends via WiFi.        *
   *                                             *
   ***********************************************/
+
+
+  /* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
 }
@@ -231,7 +418,7 @@ void loop() {
 
 
 
-
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 /************************
 ********   SPI   ******** 
@@ -279,7 +466,7 @@ byte SPI_BB(byte _sendByte){
 
 
 
-
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
 
@@ -344,6 +531,9 @@ void Data_Memory_Write(byte _writeAddress[3], byte _writeByte[256]){
 *************************/
 
 
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
+
+
 
 
 
@@ -397,7 +587,7 @@ void Data_Memory_Read(byte _readAddress[3]){
 
 
 
-
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
 
@@ -445,7 +635,7 @@ void Memory_Erase(void){
 
 
 
-
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
 
@@ -497,12 +687,12 @@ void Temp_Read(void){
 
 
 
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
-
-/*******   END   ********
-**** Creates 3Byte Address  **** 
-*************************/
+/********************************
+**** Creates 3Byte Address   **** 
+********************************/
 
 void create_Addres_Bytes (unsigned long Address){
 
@@ -540,8 +730,13 @@ void create_Addres_Bytes (unsigned long Address){
 }
 
 
+/*******       END       ********
+**** Creates 3Byte Address   **** 
+********************************/
 
 
+
+/* -#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#--#-#- */
 
 
 
