@@ -71,8 +71,14 @@
 
 
 
+\usepackage{titlesec}
 
+\usepackage{etoolbox}
+\makeatletter
+\pretocmd{\section}{\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}}{}{}
+\makeatother
 
+\usepackage{fmtcount}
 
 
 
@@ -341,25 +347,18 @@
 
 
 
-\pagenumbering{gobble}  % Comando para tirar a numeração de uma página 
-                        % Nesse caso -> Capa
-% \begin{figure}[H] % este H garante que a figura apareça aqui, nesta ordem
-%     \centering % comando para centralizar a figura
-%     \includegraphics[scale=0.4]{imagens/MGMLogo1.png} %scale é a resolução da                                         %imagem, escala. 1 = 100%
-% \end{figure}
+\pagenumbering{gobble}  
 
-\begin{figure}[H] % este H garante que a figura apareça aqui, nesta ordem
-\centering % comando para centralizar a figura
-\vspace{5cm}
-% \includegraphics[scale=0.4]{imagens/dev1_logo.png} %scale é a resolução da                                         %imagem, escala. 1 = 100%
-\end{figure} \vspace{1cm}
+\begin{phantom}
+A \vspace{6cm}
+\end{phantom}
 
 \begin{center}
     \Huge \textbf{Full Wireless Communication Device}\vspace{8cm}
 \end{center} 
 
 \begin{center}
-    \raggedleft{\textbf{Project documentation.} }  \vspace{4cm}
+    \raggedleft{\large \textbf{Project documentation.} }  \vspace{4cm}
 \end{center} 
 
 \begin{center}
@@ -374,22 +373,8 @@
 
 
 
-% \begin{center}
-  
-    % \raggedleft \textbf{\Huge{Chamada}} \textbf{\Huge{\textcolor{SF}{Smart Factory}}} \footnote{\raggedleft\textcolor{Red}{Colocar o num/data do Edital aqui}}
- 
- 
-
-
-
-
-% %Data de lançamento do documento
-% \vspace{2.93cm} \today %21 de Fevereiro de 2022
-
 
    
-   
-% \end{center}
 
 
 
@@ -438,6 +423,15 @@
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Sec 00   -  Preliminaries      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Capitulos/Sec00-Preliminaries}
+
+%%%%%%%%%%%%%%%   FIM  %%%%%%%%%%%%%%%%%
+%%%   Sec 00   -  Preliminaries      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -487,6 +481,7 @@
 %%%   Sec 04   -        Firmware                      %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\counterwithin{subsection}{section}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Finalização dos Capítulos  %
