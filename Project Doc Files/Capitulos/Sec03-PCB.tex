@@ -17,7 +17,43 @@
 
 
 
-\subsection{Component Placement/Layout}\label{03Sub:ComponentPlacementLayout}
+\subsubsection{ESP8266EX Power Supply Design}\label{02SubSub:PowerSupplyDesign}
+
+
+Prior to the power traces reaching the analog power-supply pins (Pin1, 3, 4, 28, 29), the inclusion of a 10 $\mu$F capacitor, working 
+in conjunction with a 0.1 $\mu$F capacitor, becomes necessary. Additionally, an arrangement of a C circuit and an L circuit is advised 
+for the power supplies of Pin3 and Pin4.The C-L-C circuit should be positioned as proximate as possible to the analog power-supply pin \cite{ESP8266HGL}. 
+For more information about these components, refer to Figure \ref{02fig:analogAndDigitalSupplies1}.
+It is crucial to acknowledge that the power supply pathway can be susceptible to damage as a consequence of abrupt current surges 
+during the transmission of analog signals by ESP8266EX. Consequently, it is imperative to incorporate an additional 10$\mu$F capacitor, 
+packaged in either 0603 or 0805 dimensions, to complement the existing 0.1$\mu$F capacitor \cite{ESP8266HGL}.
+
+\subsubsection{Layers Design}\label{02SubSub:LayersDesign}
+
+On \cite{ESP8266HGL} there are two suggested models regarding the number and dispositions of layers on a PCB
+that uses ESP8266EX (and by extension, an 2.4GHz RF antenna). The model with four layers was chosen. Here are 
+the specifications: 
+
+
+\begin{itemize}
+    \item The initial layer corresponds to the uppermost part and is designated as the TOP layer, utilized for 
+    signal lines and component placement.
+    \item The subsequent layer represents the GND layer, dedicated solely to establishing a comprehensive ground plane without 
+    the inclusion of signal lines.
+    \item The following layer constitutes the POWER layer, exclusively reserved for the positioning of power lines. In certain 
+    unavoidable situations, it is admissible to incorporate some signal lines within this layer.
+    \item Lastly, the final layer denotes the BOTTOM layer, exclusively allocated for signal line placement. It is discouraged 
+    to mount components on this particular layer.
+\end{itemize}
+
+Also, the power tracks should have a minimum size of 15 mils. The value used was 20 mils.
+
+\subsubsection{Reset Track Design}\label{02SubSub:ResetTrackDesign}
+
+The EXT\_RSTB (Pin32) possesses an internal pullup resistor and operates on an active low mechanism. To mitigate the possibility
+of external disturbances causing unwarranted resets, it is advised to maintain a concise PCB trace for EXT\_RSTB and 
+incorporate an RC circuit at this pin \cite{ESP8266HGL} (see section \ref{02SubSub:RCDelayResetCircuitry}).
+
 
 
 
@@ -25,8 +61,8 @@
 
 
 
-\subsection{Ground Planes}\label{03Sub:Ground planes}
 
+\subsection{Ground Planes}\label{03Sub:Ground planes}
 
 
 \subsection{Tracks and Vias}\label{03Sub:HolesAndVias}
@@ -34,6 +70,9 @@
 
 
 \subsection{RF Antenna}\label{03Sub:RFAntenna}
+
+\cite{ESP8266HGL}
+\ref{02fig:RFAntennaCircuitry}
 
 
 

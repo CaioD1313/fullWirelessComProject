@@ -81,6 +81,8 @@
 \usepackage{fmtcount}
 
 
+\usepackage{tocloft}
+
 
 
 
@@ -403,13 +405,7 @@ A \vspace{6cm}
 % Aqui começa a paginação %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%% Esta linha retira a numeração das páginas
-\pagenumbering{gobble}
 
-%%%%%% Estas duas linhas fazem a numeração das páginas
-% \pagenumbering{arabic}
-% \setcounter{page}{1}
-%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -433,6 +429,13 @@ A \vspace{6cm}
 %%%   Sec 00   -  Preliminaries      %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%% Esta linha retira a numeração das páginas
+\pagenumbering{gobble}
+
+%%%%%% Estas duas linhas fazem a numeração das páginas
+\pagenumbering{arabic}
+\setcounter{page}{1}
+%%%%%%
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -494,9 +497,13 @@ A \vspace{6cm}
 %\bibliography{bibliografia}
 
 %Comando para o package{biblatex}
-\cleardoublepage
+\clearpage
 \phantomsection
-\addcontentsline{toc}{chapter}{References}
+\addtocontents{toc}{\protect\renewcommand{\protect\cftsecleader}{\protect\cftdotfill{\protect\cftdotsep}}}
+\addcontentsline{toc}{section}{\protect\numberline{}Referências}
+\addtocontents{toc}{\cftpagenumbersoff{section}}
+\addtocontents{toc}{\cftpagenumberson{section}}
+
 \printbibliography
 
 

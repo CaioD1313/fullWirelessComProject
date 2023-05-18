@@ -1536,7 +1536,7 @@
     (effects (font (size 5 5)) (justify left bottom))
     (uuid 0d4298a8-6407-4ed5-8b97-e643b1446c14)
   )
-  (text "Program & Data Memory\n\n" (at 189.23 29.21 0)
+  (text "Storage Circuitry\n" (at 189.23 21.59 0)
     (effects (font (size 5 5)) (justify left bottom))
     (uuid 22ec13ad-bfa2-45d1-abfa-5b6438d9d633)
   )

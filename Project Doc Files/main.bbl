@@ -19,43 +19,65 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
-    \entry{Franklin2013}{book}{}
-      \name{author}{3}{}{%
-        {{hash=fed51b16ca29aaff41a16a15cd83aab5}{%
-           family={Franklin},
-           familyi={F\bibinitperiod},
-           given={Gene\bibnamedelima F.},
-           giveni={G\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
-        {{hash=9e65f50d603a7e9a41e3a314b2a943e5}{%
-           family={Emami-Naeini},
-           familyi={E\bibinithyphendelim N\bibinitperiod},
-           given={Abbas},
-           giveni={A\bibinitperiod}}}%
-        {{hash=329094868288fc62461b73d6115a5cb9}{%
-           family={Powel},
-           familyi={P\bibinitperiod},
-           given={David},
-           giveni={D\bibinitperiod}}}%
-      }
-      \list{location}{1}{%
-        {Porto Alegre, Brasil}%
-      }
-      \list{publisher}{1}{%
-        {bookman}%
-      }
-      \strng{namehash}{d011850572cec9c1320bebc002f2ef4e}
-      \strng{fullhash}{d011850572cec9c1320bebc002f2ef4e}
-      \strng{bibnamehash}{d011850572cec9c1320bebc002f2ef4e}
-      \strng{authorbibnamehash}{d011850572cec9c1320bebc002f2ef4e}
-      \strng{authornamehash}{d011850572cec9c1320bebc002f2ef4e}
-      \strng{authorfullhash}{d011850572cec9c1320bebc002f2ef4e}
-      \field{sortinit}{F}
-      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
-      \field{labelnamesource}{author}
+    \entry{DataMemoryAT}{online}{}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labeltitlesource}{title}
-      \field{edition}{6}
-      \field{title}{{Sistemas de Controle para Engenharia}}
-      \field{year}{2013}
+      \field{title}{8-Mbit SPI Serial Flash Memory with Dual-I/O and Quad-IO Support - AT25SF081 Datasheet}
+      \verb{urlraw}
+      \verb https://pdf1.alldatasheet.com/datasheet-pdf/view/606550/ETC2/AT25SF081.html
+      \endverb
+      \verb{url}
+      \verb https://pdf1.alldatasheet.com/datasheet-pdf/view/606550/ETC2/AT25SF081.html
+      \endverb
+    \endentry
+    \entry{TexasRFAntenna}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{title}{Application Note AN043 Small Size 2.4 GHz PCB antenna}
+      \verb{urlraw}
+      \verb https://www.ti.com/lit/an/swra117d/swra117d.pdf?ts=1684435789781&ref_url=https%253A%252F%252Fwww.google.com%252F
+      \endverb
+      \verb{url}
+      \verb https://www.ti.com/lit/an/swra117d/swra117d.pdf?ts=1684435789781&ref_url=https%253A%252F%252Fwww.google.com%252F
+      \endverb
+    \endentry
+    \entry{ESP8266HGL}{online}{}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labeltitlesource}{title}
+      \field{title}{ESP8266 Hardware Design Guidelines}
+      \verb{urlraw}
+      \verb https://www.espressif.com/sites/default/files/documentation/esp8266_hardware_design_guidelines_en.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.espressif.com/sites/default/files/documentation/esp8266_hardware_design_guidelines_en.pdf
+      \endverb
+    \endentry
+    \entry{LGPL}{online}{}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labeltitlesource}{title}
+      \field{title}{The GNU GLPL full text}
+      \verb{urlraw}
+      \verb https://github.com/esp8266/Arduino/blob/master/LICENSE
+      \endverb
+      \verb{url}
+      \verb https://github.com/esp8266/Arduino/blob/master/LICENSE
+      \endverb
+    \endentry
+    \entry{ProgramMemoryMX}{online}{}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labeltitlesource}{title}
+      \field{title}{Ultra low power, 32Mbit [x 1/ x2/ x4] CMOS MXSMIO (Serial Multi I/O Flash Memory - MX25R3235F Datasheet)}
+      \verb{urlraw}
+      \verb https://www.macronix.com/Lists/Datasheet/Attachments/8755/MX25R3235F,%20Wide%20Range,%2032Mb,%20v1.8.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.macronix.com/Lists/Datasheet/Attachments/8755/MX25R3235F,%20Wide%20Range,%2032Mb,%20v1.8.pdf
+      \endverb
     \endentry
   \enddatalist
 \endrefsection
