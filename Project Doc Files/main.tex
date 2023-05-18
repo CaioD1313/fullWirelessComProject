@@ -1,0 +1,513 @@
+%\documentclass{article}
+%\documentclass[11pt,openany,brazil]{report}
+\documentclass[12pt,brazil]{article}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% Pacotes de formatação: %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc} % indica o uso dos caracteres da nossa língua
+\usepackage[english]{babel} % indica que o texto está em português, assim atributos
+                               % automáticos, tais como criação de capítulos, inserção de
+                               % elementos no sumário e etc já são escritos em pt-br
+
+\usepackage{ragged2e} % fornece o comando \justifying
+
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=40mm,
+ bottom = 30mm,
+ }
+ 
+
+% Pacote para formatção e utilização de tabelas
+\usepackage{tabularx}
+\usepackage{multirow} % permite a mescla de colunas e criação de merges 
+
+\usepackage{array} % pacote para manter tabela com wdith fixa
+
+
+
+%Pacote para formatar as legendas das figuras, tabelas e etc
+\usepackage[font=scriptsize,labelfont=bf]{caption}
+\usepackage[font=scriptsize,labelfont=bf]{subcaption}
+
+
+%pacote para aparecer subsubsection enumeradas, no corpo do texto, mas não no sumário
+\setcounter{secnumdepth}{3}
+
+%%%%%%%%%%%%%%%% FIM %%%%%%%%%%%%%%%%%%
+%%%%%%% Pacotes de formatação: %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% Pacote para usar begin landscape
+\usepackage{pdflscape}
+
+
+
+\usepackage{biblatex} %Imports biblatex package
+\usepackage{csquotes}
+\addbibresource{bibliography.bib}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Pacotes de figuras: %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{float} %força a figura a ficar no lugar abaixo do texto com o comando H
+
+\usepackage{graphicx}
+%\graphicspath{ {./imagens/} }
+
+
+%%%%%%%%%%%%%%%% FIM %%%%%%%%%%%%%%%%%%
+%%%%%%%% Pacotes de figuras: %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Pacotes de cores:  %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{color}
+\usepackage{xcolor} % Cores extras overleaf
+
+
+
+
+%% pacote para formatação de códigos de programação em seu formato nativo
+%% Ex: ```sql SELECT * FROM DUMMY_TABLE```
+\usepackage{listings}
+
+
+\usepackage{courier}
+
+%%% Define Custom IDE Colors %%%
+\definecolor{arduinoGreen}    {rgb} {0.17, 0.43, 0.01}
+\definecolor{arduinoGrey}     {rgb} {0.47, 0.47, 0.33}
+\definecolor{arduinoOrange}   {rgb} {0.8 , 0.4 , 0   }
+\definecolor{arduinoBlue}     {rgb} {0.01, 0.61, 0.98}
+\definecolor{arduinoDarkBlue} {rgb} {0.0 , 0.2 , 0.5 }
+
+
+%%% Define Arduino Language %%%
+\lstdefinelanguage{Arduino}{
+  language=C++, % begin with default C++ settings 
+%
+%
+  %%% Keyword Color Group 1 %%%  (called KEYWORD3 by arduino)
+  keywordstyle=\color{arduinoGreen},   
+  deletekeywords={  % remove all arduino keywords that might be in c++
+                break, case, override, final, continue, default, do, else, for, 
+                if, return, goto, switch, throw, try, while, setup, loop, export, 
+                not, or, and, xor, include, define, elif, else, error, if, ifdef, 
+                ifndef, pragma, warning,
+                HIGH, LOW, INPUT, INPUT_PULLUP, OUTPUT, DEC, BIN, HEX, OCT, PI, 
+                HALF_PI, TWO_PI, LSBFIRST, MSBFIRST, CHANGE, FALLING, RISING, 
+                DEFAULT, EXTERNAL, INTERNAL, INTERNAL1V1, INTERNAL2V56, LED_BUILTIN, 
+                LED_BUILTIN_RX, LED_BUILTIN_TX, DIGITAL_MESSAGE, FIRMATA_STRING, 
+                ANALOG_MESSAGE, REPORT_DIGITAL, REPORT_ANALOG, SET_PIN_MODE, 
+                SYSTEM_RESET, SYSEX_START, auto, int8_t, int16_t, int32_t, int64_t, 
+                uint8_t, uint16_t, uint32_t, uint64_t, char16_t, char32_t, operator, 
+                enum, delete, bool, boolean, byte, char, const, false, float, double, 
+                null, NULL, int, long, new, private, protected, public, short, 
+                signed, static, volatile, String, void, true, unsigned, word, array, 
+                sizeof, dynamic_cast, typedef, const_cast, struct, static_cast, union, 
+                friend, extern, class, reinterpret_cast, register, explicit, inline, 
+                _Bool, complex, _Complex, _Imaginary, atomic_bool, atomic_char, 
+                atomic_schar, atomic_uchar, atomic_short, atomic_ushort, atomic_int, 
+                atomic_uint, atomic_long, atomic_ulong, atomic_llong, atomic_ullong, 
+                virtual, PROGMEM,
+                Serial, Serial1, Serial2, Serial3, SerialUSB, Keyboard, Mouse,
+                abs, acos, asin, atan, atan2, ceil, constrain, cos, degrees, exp, 
+                floor, log, map, max, min, radians, random, randomSeed, round, sin, 
+                sq, sqrt, tan, pow, bitRead, bitWrite, bitSet, bitClear, bit, 
+                highByte, lowByte, analogReference, analogRead, 
+                analogReadResolution, analogWrite, analogWriteResolution, 
+                attachInterrupt, detachInterrupt, digitalPinToInterrupt, delay, 
+                delayMicroseconds, digitalWrite, digitalRead, interrupts, millis, 
+                micros, noInterrupts, noTone, pinMode, pulseIn, pulseInLong, shiftIn, 
+                shiftOut, tone, yield, Stream, begin, end, peek, read, print, 
+                println, available, availableForWrite, flush, setTimeout, find, 
+                findUntil, parseInt, parseFloat, readBytes, readBytesUntil, readString, 
+                readStringUntil, trim, toUpperCase, toLowerCase, charAt, compareTo, 
+                concat, endsWith, startsWith, equals, equalsIgnoreCase, getBytes, 
+                indexOf, lastIndexOf, length, replace, setCharAt, substring, 
+                toCharArray, toInt, press, release, releaseAll, accept, click, move, 
+                isPressed, isAlphaNumeric, isAlpha, isAscii, isWhitespace, isControl, 
+                isDigit, isGraph, isLowerCase, isPrintable, isPunct, isSpace, 
+                isUpperCase, isHexadecimalDigit, 
+                }, 
+  morekeywords={   % add arduino structures to group 1
+                break, case, override, final, continue, default, do, else, for, 
+                if, return, goto, switch, throw, try, while, setup, loop, export, 
+                not, or, and, xor, include, define, elif, else, error, if, ifdef, 
+                ifndef, pragma, warning,
+                }, 
+% 
+%
+  %%% Keyword Color Group 2 %%%  (called LITERAL1 by arduino)
+  keywordstyle=[2]\color{arduinoBlue},   
+  keywords=[2]{   % add variables and dataTypes as 2nd group  
+                HIGH, LOW, INPUT, INPUT_PULLUP, OUTPUT, DEC, BIN, HEX, OCT, PI, 
+                HALF_PI, TWO_PI, LSBFIRST, MSBFIRST, CHANGE, FALLING, RISING, 
+                DEFAULT, EXTERNAL, INTERNAL, INTERNAL1V1, INTERNAL2V56, LED_BUILTIN, 
+                LED_BUILTIN_RX, LED_BUILTIN_TX, DIGITAL_MESSAGE, FIRMATA_STRING, 
+                ANALOG_MESSAGE, REPORT_DIGITAL, REPORT_ANALOG, SET_PIN_MODE, 
+                SYSTEM_RESET, SYSEX_START, auto, int8_t, int16_t, int32_t, int64_t, 
+                uint8_t, uint16_t, uint32_t, uint64_t, char16_t, char32_t, operator, 
+                enum, delete, bool, boolean, byte, char, const, false, float, double, 
+                null, NULL, int, long, new, private, protected, public, short, 
+                signed, static, volatile, String, void, true, unsigned, word, array, 
+                sizeof, dynamic_cast, typedef, const_cast, struct, static_cast, union, 
+                friend, extern, class, reinterpret_cast, register, explicit, inline, 
+                _Bool, complex, _Complex, _Imaginary, atomic_bool, atomic_char, 
+                atomic_schar, atomic_uchar, atomic_short, atomic_ushort, atomic_int, 
+                atomic_uint, atomic_long, atomic_ulong, atomic_llong, atomic_ullong, 
+                virtual, PROGMEM,
+                },  
+% 
+%
+  %%% Keyword Color Group 3 %%%  (called KEYWORD1 by arduino)
+  keywordstyle=[3]\bfseries\color{arduinoOrange},
+  keywords=[3]{  % add built-in functions as a 3rd group
+                Serial, Serial1, Serial2, Serial3, SerialUSB, Keyboard, Mouse,
+                },      
+%
+%
+  %%% Keyword Color Group 4 %%%  (called KEYWORD2 by arduino)
+  keywordstyle=[4]\color{arduinoOrange},
+  keywords=[4]{  % add more built-in functions as a 4th group
+                abs, acos, asin, atan, atan2, ceil, constrain, cos, degrees, exp, 
+                floor, log, map, max, min, radians, random, randomSeed, round, sin, 
+                sq, sqrt, tan, pow, bitRead, bitWrite, bitSet, bitClear, bit, 
+                highByte, lowByte, analogReference, analogRead, 
+                analogReadResolution, analogWrite, analogWriteResolution, 
+                attachInterrupt, detachInterrupt, digitalPinToInterrupt, delay, 
+                delayMicroseconds, digitalWrite, digitalRead, interrupts, millis, 
+                micros, noInterrupts, noTone, pinMode, pulseIn, pulseInLong, shiftIn, 
+                shiftOut, tone, yield, Stream, begin, end, peek, read, print, 
+                println, available, availableForWrite, flush, setTimeout, find, 
+                findUntil, parseInt, parseFloat, readBytes, readBytesUntil, readString, 
+                readStringUntil, trim, toUpperCase, toLowerCase, charAt, compareTo, 
+                concat, endsWith, startsWith, equals, equalsIgnoreCase, getBytes, 
+                indexOf, lastIndexOf, length, replace, setCharAt, substring, 
+                toCharArray, toInt, press, release, releaseAll, accept, click, move, 
+                isPressed, isAlphaNumeric, isAlpha, isAscii, isWhitespace, isControl, 
+                isDigit, isGraph, isLowerCase, isPrintable, isPunct, isSpace, 
+                isUpperCase, isHexadecimalDigit, 
+                },      
+%
+%
+  %%% Set Other Colors %%%
+  stringstyle=\color{arduinoDarkBlue},    
+  commentstyle=\color{arduinoGrey},    
+%          
+%   
+  %%%% Line Numbering %%%%
+  numbers=left,                    
+  numbersep=5pt,                   
+  numberstyle=\color{arduinoGrey},    
+  %stepnumber=2,                      % show every 2 line numbers
+%
+%
+  %%%% Code Box Style %%%%
+  breaklines=true,                    % wordwrapping
+  tabsize=2,         
+  basicstyle=\ttfamily  
+}
+
+%%%% DEFINIÇÕES DE CORES HTML: NOSSO PADRÃO PARA UTILZIÇÃO NA DOCUMENTAÇÃO
+
+% Padrão -> {NomeDaCor}{PadraoDaCor}{CódigoHexadecimal}
+
+\definecolor{ClassColor}{HTML}{4EC9A7} %Cor das classes do C#
+\definecolor{Control}{HTML}{FF6400} % Laranja da Devlean
+\definecolor{SF}{HTML}{06428D} % Azul Smart Factory
+\definecolor{TabelaBanco}{HTML}{315fbb} % Padrão de cor para tabelas no banco Devlean
+\definecolor{IList}{HTML}{DCC774} %Cor das classes do C#
+%%%%%%%%%%%%%%%% FIM %%%%%%%%%%%%%%%%%%
+%%%%%%%% Pacotes de cores:  %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Pacotes para hyperlink %%%%%%%
+%%%%%%%        no sumário       %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=black,  %choose some color if you want links to stand out
+    filecolor=blue,      
+    urlcolor=blue,
+    citecolor = black
+}
+
+
+%%%%%%%%%%%%%%%% FIM %%%%%%%%%%%%%%%%%%
+%%%%%%%% Pacotes para hyperlink %%%%%%%
+%%%%%%%        no sumário       %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Pacotes para BackGroud %%%%%%%
+%%%%%%%        Template         %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%% Se quiser colocar apenas em algumas páginas, utilizar o campo \usepackage[pages=some] 'some' <-
+%% Comandos para colocar background
+% \BgThispage %% página que contém o background
+
+% \clearpage 
+% \usepackage[pages=all]{background}
+
+% \backgroundsetup{
+% scale=1,
+% color=black,
+% opacity=1,
+% angle=0,
+% contents={%
+%   \includegraphics[width=\paperwidth,height=\paperheight]{imagens/templatePlataformaInovacao.png}
+%   }%
+% }
+
+
+%%%%%%%%%%%%%%%% FIM %%%%%%%%%%%%%%%%%%
+%%%%%%%% Pacotes para BackGroud %%%%%%%
+%%%%%%%        Template         %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%   Pacotes para Fonte    %%%%%%%
+% %%%%%%%        Arial            %%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \usepackage{uarial}
+% \setmainfont{Arial}
+
+
+% %%%%%%%%%%%%%%%% FIM %%%%%%%%%%%%%%%%%%
+% %%%%%%%   Pacotes para Fonte    %%%%%%%
+% %%%%%%%        Arial            %%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\renewcommand*\footnoterule{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% INÍCIO DOCUMENTO  %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thefootnote}{\Roman{footnote}}
+\begin{document}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%   Capa do Documento     %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+\pagenumbering{gobble}  % Comando para tirar a numeração de uma página 
+                        % Nesse caso -> Capa
+% \begin{figure}[H] % este H garante que a figura apareça aqui, nesta ordem
+%     \centering % comando para centralizar a figura
+%     \includegraphics[scale=0.4]{imagens/MGMLogo1.png} %scale é a resolução da                                         %imagem, escala. 1 = 100%
+% \end{figure}
+
+\begin{figure}[H] % este H garante que a figura apareça aqui, nesta ordem
+\centering % comando para centralizar a figura
+\vspace{5cm}
+% \includegraphics[scale=0.4]{imagens/dev1_logo.png} %scale é a resolução da                                         %imagem, escala. 1 = 100%
+\end{figure} \vspace{1cm}
+
+\begin{center}
+    \Huge \textbf{Full Wireless Communication Device}\vspace{8cm}
+\end{center} 
+
+\begin{center}
+    \raggedleft{\textbf{Project documentation.} }  \vspace{4cm}
+\end{center} 
+
+\begin{center}
+    \raggedleft{\textbf{Caio Dutra} } 
+\end{center} 
+
+\begin{center}
+    \raggedleft{\textbf{May 2023} } \\ 
+\end{center} 
+
+
+
+
+
+% \begin{center}
+  
+    % \raggedleft \textbf{\Huge{Chamada}} \textbf{\Huge{\textcolor{SF}{Smart Factory}}} \footnote{\raggedleft\textcolor{Red}{Colocar o num/data do Edital aqui}}
+ 
+ 
+
+
+
+
+% %Data de lançamento do documento
+% \vspace{2.93cm} \today %21 de Fevereiro de 2022
+
+
+   
+   
+% \end{center}
+
+
+
+%%%%%%%%%%%%%%%   FIM   %%%%%%%%%%%%%%%
+%%%%%%%   Capa do Documento     %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% Sumário do Documento     %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\justifying
+\newpage
+\tableofcontents %cria sumário
+
+\clearpage % Comando para tirar a numeração de uma página 
+           % Nesse caso -> Sumário (Tabel of contents)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% Sumário do Documento     %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aqui começa a paginação %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%% Esta linha retira a numeração das páginas
+\pagenumbering{gobble}
+
+%%%%%% Estas duas linhas fazem a numeração das páginas
+% \pagenumbering{arabic}
+% \setcounter{page}{1}
+%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aqui acaba a paginação %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inicialização dos Capítulos %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Sec 01   -   Introduction      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Capitulos/Sec01-Intro.tex}
+
+%%%%%%%%%%%%%%%   FIM  %%%%%%%%%%%%%%%%%
+%%%   Sec 01   -   Introduction      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Sec 02   -       Schematics                     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Capitulos/Sec02-Schematics.tex}
+
+%%%%%%%%%%%%%%%           FIM          %%%%%%%%%%%%%%%%%%
+%%%   Sec 02   -       Schematics                     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Sec 03   -            PCB                            %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Capitulos/Sec03-PCB.tex}
+
+%%%%%%%%%%%%%%%             FIM             %%%%%%%%%%%%%%%%%%
+%%%   Sec 03   -            PCB                            %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   Sec 04   -        Firmware                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{Capitulos/Sec04-Firmware.tex}
+
+%%%%%%%%%%%%%%%           FIM          %%%%%%%%%%%%%%%%%%
+%%%   Sec 04   -        Firmware                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Finalização dos Capítulos  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newpage
+
+%Comando para o package{natbib}
+%\bibliography{bibliografia}
+
+%Comando para o package{biblatex}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\printbibliography
+
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%   FIM DOCUMENTO   %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

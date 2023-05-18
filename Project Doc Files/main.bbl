@@ -1,0 +1,127 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{Franklin2013}{book}{}
+      \name{author}{3}{}{%
+        {{hash=fed51b16ca29aaff41a16a15cd83aab5}{%
+           family={Franklin},
+           familyi={F\bibinitperiod},
+           given={Gene\bibnamedelima F.},
+           giveni={G\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=9e65f50d603a7e9a41e3a314b2a943e5}{%
+           family={Emami-Naeini},
+           familyi={E\bibinithyphendelim N\bibinitperiod},
+           given={Abbas},
+           giveni={A\bibinitperiod}}}%
+        {{hash=329094868288fc62461b73d6115a5cb9}{%
+           family={Powel},
+           familyi={P\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Porto Alegre, Brasil}%
+      }
+      \list{publisher}{1}{%
+        {bookman}%
+      }
+      \strng{namehash}{d011850572cec9c1320bebc002f2ef4e}
+      \strng{fullhash}{d011850572cec9c1320bebc002f2ef4e}
+      \strng{bibnamehash}{d011850572cec9c1320bebc002f2ef4e}
+      \strng{authorbibnamehash}{d011850572cec9c1320bebc002f2ef4e}
+      \strng{authornamehash}{d011850572cec9c1320bebc002f2ef4e}
+      \strng{authorfullhash}{d011850572cec9c1320bebc002f2ef4e}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{6}
+      \field{title}{{Sistemas de Controle para Engenharia}}
+      \field{year}{2013}
+    \endentry
+    \entry{Penrose2020}{online}{}
+      \name{author}{1}{}{%
+        {{hash=f51dfd339a12125d0f82a2d93e66d9b7}{%
+           family={Penrose},
+           familyi={P\bibinitperiod},
+           given={Roger},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Youtube}%
+      }
+      \strng{namehash}{f51dfd339a12125d0f82a2d93e66d9b7}
+      \strng{fullhash}{f51dfd339a12125d0f82a2d93e66d9b7}
+      \strng{bibnamehash}{f51dfd339a12125d0f82a2d93e66d9b7}
+      \strng{authorbibnamehash}{f51dfd339a12125d0f82a2d93e66d9b7}
+      \strng{authornamehash}{f51dfd339a12125d0f82a2d93e66d9b7}
+      \strng{authorfullhash}{f51dfd339a12125d0f82a2d93e66d9b7}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Is Math Invented or Discovered? - Closer To Truth}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://www.youtube.com/watch?v=ujvS2K06dg4
+      \endverb
+      \verb{url}
+      \verb https://www.youtube.com/watch?v=ujvS2K06dg4
+      \endverb
+    \endentry
+    \entry{Schenato2009}{article}{}
+      \name{author}{1}{}{%
+        {{hash=aec3f05521fca1bd73ebbb1ef781e01e}{%
+           family={Schenato},
+           familyi={S\bibinitperiod},
+           given={Luca},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Campinas, SP - Brasil}%
+      }
+      \list{publisher}{1}{%
+        {IEEE Xplore}%
+      }
+      \strng{namehash}{aec3f05521fca1bd73ebbb1ef781e01e}
+      \strng{fullhash}{aec3f05521fca1bd73ebbb1ef781e01e}
+      \strng{bibnamehash}{aec3f05521fca1bd73ebbb1ef781e01e}
+      \strng{authorbibnamehash}{aec3f05521fca1bd73ebbb1ef781e01e}
+      \strng{authornamehash}{aec3f05521fca1bd73ebbb1ef781e01e}
+      \strng{authorfullhash}{aec3f05521fca1bd73ebbb1ef781e01e}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Automatic Control}
+      \field{month}{5}
+      \field{number}{5}
+      \field{title}{To Zero or to Hold Control Inputs With Lossy Links?}
+      \field{volume}{54}
+      \field{year}{2009}
+      \field{pages}{1093\bibrangedash 1099}
+      \range{pages}{7}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
