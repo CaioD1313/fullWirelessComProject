@@ -450,7 +450,7 @@ Package: titlesec 2021/07/05 v2.14 Sectioning titles
 \titlewidth=\dimen170
 \titlewidthlast=\dimen171
 \titlewidthfirst=\dimen172
-) (C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex/latex/fmtcount\fmtcount.sty
+) (C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex/latex/chngcntr\chngcntr.sty
 Package: fmtcount 2020/01/30 v3.07
  (C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
