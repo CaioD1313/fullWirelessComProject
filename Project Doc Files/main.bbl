@@ -91,6 +91,18 @@
       \verb https://br.mouser.com/datasheet/2/137/FA_238_en-932914.pdf
       \endverb
     \endentry
+    \entry{TMP35}{online}{}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labeltitlesource}{title}
+      \field{title}{Low Voltage Temperature Sensors TMP35/TMP36/TMP37 - TMP35 Datasheet}
+      \verb{urlraw}
+      \verb http://www.advanced-monolithic.com/pdf/ds1117.pdf
+      \endverb
+      \verb{url}
+      \verb http://www.advanced-monolithic.com/pdf/ds1117.pdf
+      \endverb
+    \endentry
     \entry{AppCad}{online}{}
       \field{sortinit}{T}
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}

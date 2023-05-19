@@ -2376,14 +2376,16 @@
     <bcf:citekey order="13" intorder="1">ProgramMemoryMX</bcf:citekey>
     <bcf:citekey order="14" intorder="1">DataMemoryAT</bcf:citekey>
     <bcf:citekey order="15" intorder="1">DataMemoryAT</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">ESP8266HGL</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">ESP8266HGL</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">TMP35</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">ESP8266EX</bcf:citekey>
     <bcf:citekey order="18" intorder="1">ESP8266HGL</bcf:citekey>
     <bcf:citekey order="19" intorder="1">ESP8266HGL</bcf:citekey>
     <bcf:citekey order="20" intorder="1">ESP8266HGL</bcf:citekey>
     <bcf:citekey order="21" intorder="1">ESP8266HGL</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">TexasRFAntenna</bcf:citekey>
-    <bcf:citekey order="23" intorder="1">AppCad</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">ESP8266HGL</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">ESP8266HGL</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">TexasRFAntenna</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">AppCad</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

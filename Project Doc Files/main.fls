@@ -1073,12 +1073,16 @@ INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ot1pcr.fd
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ot1pcr.fd
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ot1pcr.fd
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr7t.tfm
-INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrb7t.tfm
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrr7t.vf
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\base\8r.enc
-INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrb7t.vf
-INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrb8r.tfm
+INPUT .\imagens\FA.png
+INPUT .\imagens\FA.png
+INPUT imagens\FA.png
+INPUT .\imagens\FA.png
+INPUT .\imagens\FA.png
+INPUT .\imagens\FA.png
+INPUT .\imagens\FA.png
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmcsc10.tfm
 INPUT main.aux
 INPUT .\main.out
@@ -1103,7 +1107,5 @@ INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\c
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy10.pfb
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmti12.pfb
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmti12.pfb
-INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\type1\urw\courier\ucrb8a.pfb
-INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\type1\urw\courier\ucrb8a.pfb
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\type1\urw\courier\ucrr8a.pfb
 INPUT C:\Users\caiob\AppData\Local\Programs\MiKTeX\fonts\type1\urw\courier\ucrr8a.pfb

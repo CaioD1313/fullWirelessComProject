@@ -265,17 +265,7 @@ void setup() {
   //definition of the SHUTDOWN pin of TMP35
   pinMode(Temp_Sensor_Shutdown_Pin,OUTPUT);
 
-
-  WiFi.begin(SSID,PSSWRD); // set the SSID and password to connect on the AP
-
-  while(WiFi.status() != WL_CONNECTED){} // wait until the ESP connects to the AP, otherwise doesn't proceed
-
-  
   delay(1000); // For powering guarantees, wait 1s for stabilization of whole circuit (data memory, temp sensor, etc) 
-
-
-  
-
 
 }
 

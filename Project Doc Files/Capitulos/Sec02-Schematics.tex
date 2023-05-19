@@ -274,7 +274,9 @@ Therefore, the memory can be programmed and erased without any difficulties. Bot
 \subsubsection{Temperature Sensor Circuitry}\label{02SubSub:TemperatureSensorCircuitry}
 
 
-
+The TMP35 temperature sensor \cite{TMP35} provides analog temperature readings, which can be converted into temperature values using appropriate 
+calibration by ``voltage divider circuit'' shown in the Figure \ref{02fig:temperatureSensorCircuitry}. This adjustment is need as the 
+ESP8266EX ADC Input can only receive values between 0 and 1V \cite{ESP8266EX}.
 
 \begin{figure}[H]
     \centering

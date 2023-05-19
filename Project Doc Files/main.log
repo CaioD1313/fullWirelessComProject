@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.17)  18 MAY 2023 21:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.17)  18 MAY 2023 23:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -904,22 +904,22 @@ File: imagens/storageCircuitry.png Graphic file (type png)
 Package pdftex.def Info: imagens/storageCircuitry.png  used on input line 262.
 (pdftex.def)             Requested size: 326.12088pt x 257.46385pt.
 [11 <./imagens/powerCircuitry.png>]
-<imagens/temperatureSensorCircuitry.png, id=335, 495.35063pt x 433.62pt>
+<imagens/temperatureSensorCircuitry.png, id=338, 495.35063pt x 433.62pt>
 File: imagens/temperatureSensorCircuitry.png Graphic file (type png)
 <use imagens/temperatureSensorCircuitry.png>
-Package pdftex.def Info: imagens/temperatureSensorCircuitry.png  used on input line 281.
+Package pdftex.def Info: imagens/temperatureSensorCircuitry.png  used on input line 283.
 (pdftex.def)             Requested size: 297.21268pt x 260.17401pt.
-) (Capitulos/Sec03-PCB.tex [12 <./imagens/storageCircuitry.png> <./imagens/temperatureSensorCircuitry.png>] [13]
+ [12 <./imagens/storageCircuitry.png>]) (Capitulos/Sec03-PCB.tex [13 <./imagens/temperatureSensorCircuitry.png>] [14]
 Underfull \hbox (badness 10000) in paragraph at lines 80--93
 
  []
 
-<imagens/50ohmImpedanceDesignA.png, id=357, 651.18282pt x 402.00188pt>
+<imagens/50ohmImpedanceDesignA.png, id=365, 651.18282pt x 402.00188pt>
 File: imagens/50ohmImpedanceDesignA.png Graphic file (type png)
 <use imagens/50ohmImpedanceDesignA.png>
 Package pdftex.def Info: imagens/50ohmImpedanceDesignA.png  used on input line 100.
 (pdftex.def)             Requested size: 390.7127pt x 241.20297pt.
-[14]) (Capitulos/Sec04-Firmware.tex [15 <./imagens/50ohmImpedanceDesignA.png>]
+[15]) (Capitulos/Sec04-Firmware.tex [16 <./imagens/50ohmImpedanceDesignA.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 11--15
 
  []
@@ -934,6 +934,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--22
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--34
+
+ []
+
+
+Overfull \hbox (2.75302pt too wide) in paragraph at lines 43--47
+[]\OT1/cmr/m/n/12 The WiFi-Client []hostClient; cre-ates an in-stance of the WiFi-Client class named []hostClient.
+ []
+
+[17]
+Overfull \hbox (100.93387pt too wide) in paragraph at lines 82--83
+[]\OT1/cmr/m/n/12 SSID: Ser-vice Set Iden-ti-fier (SSID) of the Wi-Fi net-work to be con-nected, set to "Fake[]WiFi[]Net[]To[]Connect". 
+ []
+
+
+Overfull \hbox (19.12549pt too wide) in paragraph at lines 83--84
+[]\OT1/cmr/m/n/12 PSSWRD: Pass-word of the Wi-Fi net-work to be con-nected, set to "Fake[]WiFi[]Net[]Password". 
+ []
+
 (C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
@@ -941,30 +961,61 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 )
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 42.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 105.
  (C:\Users\caiob\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)) [16{C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}] [17
+) [18] [19{C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}] [20]
+<imagens/FA.png, id=452, 467.46645pt x 673.7973pt>
+File: imagens/FA.png Graphic file (type png)
+<use imagens/FA.png>
+Package pdftex.def Info: imagens/FA.png  used on input line 184.
+(pdftex.def)             Requested size: 420.71591pt x 606.41197pt.
+ [21]
+Underfull \hbox (badness 10000) in paragraph at lines 193--197
+
+ []
+
+[22 <./imagens/FA.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 198--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--222
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 223--228
+
+ []
+
+) [23]
+Overfull \hbox (1.82925pt too wide) in paragraph at lines 508--508
+[]\OT1/cmr/m/it/12 ESP8266 Hard-ware De-sign Guide-lines\OT1/cmr/m/n/12 . \OT1/cmr/m/sc/12 url\OT1/cmr/m/n/12 : [][]$\OT1/pcr/m/n/12 https : / / www . espressif . com / sites /
+ []
+
+[24
 
 ] (main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 8A0AA0BDEEC9CD1133AAE3463B846A93;5706.
+(rerunfilecheck)             Checksum: 43A2BBE29182BEFF72C97B6A1B0ED4B0;5698.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 23773 strings out of 476331
- 421380 string characters out of 5787765
- 1893660 words of memory out of 5000000
- 43782 multiletter control sequences out of 15000+600000
- 519471 words of font info for 56 fonts, out of 8000000 for 9000
+ 23871 strings out of 476331
+ 422845 string characters out of 5787765
+ 2159660 words of memory out of 5000000
+ 43832 multiletter control sequences out of 15000+600000
+ 518956 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,7n,127p,1217b,1874s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\caiob\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on main.pdf (19 pages, 717331 bytes).
+ 89i,7n,127p,1217b,2444s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\caiob\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/caiob/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on main.pdf (26 pages, 1001560 bytes).
 PDF statistics:
- 487 PDF objects out of 1000 (max. 8388607)
- 90 named destinations out of 1000 (max. 500000)
- 344 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 569 PDF objects out of 1000 (max. 8388607)
+ 139 named destinations out of 1000 (max. 500000)
+ 349 words of extra memory for PDF output out of 10000 (max. 10000000)
 
