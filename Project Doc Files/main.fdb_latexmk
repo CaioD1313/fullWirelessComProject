@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1684451388 "main.bcf" "main.bbl" "main" 1684451398 0
-  "./bibliography.bib" 1684446797 2613 b5676af0c314a2271d45f5a115b3b561 ""
-  "main.bcf" 1684451397 108691 c0832253692ed6bfd9c28ae0fb6846b8 "pdflatex"
+["biber main"] 1684455959 "main.bcf" "main.bbl" "main" 1684455987 0
+  "./bibliography.bib" 1684454682 2736 ccc0ba62d5a02e42edff816caf7108c6 ""
+  "main.bcf" 1684455986 109210 0adaaa3e340d7e391a8077662259d937 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1684451393 "c:/Users/caiob/Documents/fullWirelessComProject/Project Doc Files/main.tex" "main.pdf" "main" 1684451398 0
+["pdflatex"] 1684455981 "c:/Users/caiob/Documents/fullWirelessComProject/Project Doc Files/main.tex" "main.pdf" "main" 1684455987 0
   "C:/Users/caiob/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1684450693 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/caiob/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1200.pk" 1684329852 14064 aad6f283927d9a47a78f064d877c80cc ""
   "C:/Users/caiob/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1684329667 23178960 da5677aa656a9b4eb61d3187affc6248 ""
@@ -149,10 +149,11 @@
   "C:/Users/caiob/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "Capitulos/Sec00-Preliminaries.tex" 1684437420 1760 42ffcd8aba82c7ff6b56e648e74ddbe1 ""
   "Capitulos/Sec01-Intro.tex" 1684437195 5719 1f01ffdc3d5f380de4421cfd5070c51f ""
-  "Capitulos/Sec02-Schematics.tex" 1684451366 12413 29611bfb9f61d799d45ed6d638cee70e ""
-  "Capitulos/Sec03-PCB.tex" 1684451383 3320 0fd63b888b26d42f8cf17688b82ab642 ""
+  "Capitulos/Sec02-Schematics.tex" 1684455976 13667 a3386c0ca6f1639a65af2011662cd5d6 ""
+  "Capitulos/Sec03-PCB.tex" 1684455457 6771 279d37d2801f5aa2fdabccea1c5afcbd ""
   "Capitulos/Sec04-Firmware.tex" 1684439638 1917 7905d316edf9a6d1992464c15b09b426 ""
   "c:/Users/caiob/Documents/fullWirelessComProject/Project Doc Files/main.tex" 1684450933 17036 1411175bb497be5dfb860fb5a3a6798d ""
+  "imagens/50ohmImpedanceDesignA.png" 1684453888 207407 a3401a1bc3da293e14f4447d867335ba ""
   "imagens/BD.png" 1684439139 96040 6fd15a7faa85ee9c3f10515e4a4be162 ""
   "imagens/DriveCurrentSCLKRES.png" 1684443279 36185 051142cb30f7bcece0976eb1bdcfa147 ""
   "imagens/RCDelayResetCircuitry.png" 1684443157 27509 bf55918b94232fcd44adec6bc5ab1f6c ""
@@ -163,12 +164,12 @@
   "imagens/schematics-1.png" 1684440625 145700 d1ca0721c6246179714d9b6a022fa731 ""
   "imagens/storageCircuitry.png" 1684442753 29243 4bdfd954843115e765383335d202b26f ""
   "imagens/temperatureSensorCircuitry.png" 1684442799 18776 9fcf14d9ce6c742713d6a1c1eec1ae12 ""
-  "main.aux" 1684451397 13234 d7456b0b1514f5d0b55014983c509ae8 "pdflatex"
-  "main.bbl" 1684451393 3274 3da324e843885110cca1a301be3cecaa "biber main"
-  "main.out" 1684451397 5955 eca22c42effae1ae150e3dbeb507c664 "pdflatex"
-  "main.run.xml" 1684451397 2370 63e9588ad22bc651cf565e2810813c97 "pdflatex"
+  "main.aux" 1684455986 13712 5b6ed88dce88d1062ca9df1175b03da1 "pdflatex"
+  "main.bbl" 1684455963 5071 3c8436efc20f7e9257463fb41dc01b7b "biber main"
+  "main.out" 1684455986 5706 8a0aa0bdeec9cd1133aae3463b846a93 "pdflatex"
+  "main.run.xml" 1684455986 2370 63e9588ad22bc651cf565e2810813c97 "pdflatex"
   "main.tex" 1684450933 17036 1411175bb497be5dfb860fb5a3a6798d ""
-  "main.toc" 1684451397 3485 6a5905342141ee701f8c383e6e8c58cc "pdflatex"
+  "main.toc" 1684455986 3285 a721a211aae2efce9ab1ad6fcbd42a65 "pdflatex"
   (generated)
   "main.aux"
   "main.bcf"

@@ -31,6 +31,18 @@
       \verb https://pdf1.alldatasheet.com/datasheet-pdf/view/606550/ETC2/AT25SF081.html
       \endverb
     \endentry
+    \entry{AMS1117}{online}{}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{title}{Advanced Monolithic Systems - AMS1117 Datasheet}
+      \verb{urlraw}
+      \verb http://www.advanced-monolithic.com/pdf/ds1117.pdf
+      \endverb
+      \verb{url}
+      \verb http://www.advanced-monolithic.com/pdf/ds1117.pdf
+      \endverb
+    \endentry
     \entry{TexasRFAntenna}{online}{}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
@@ -53,6 +65,42 @@
       \endverb
       \verb{url}
       \verb https://www.espressif.com/sites/default/files/documentation/esp8266_hardware_design_guidelines_en.pdf
+      \endverb
+    \endentry
+    \entry{ESP8266EX}{online}{}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labeltitlesource}{title}
+      \field{title}{ESP8266EX Datasheet}
+      \verb{urlraw}
+      \verb https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf
+      \endverb
+    \endentry
+    \entry{FA238}{online}{}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labeltitlesource}{title}
+      \field{title}{FA-238 Mhz Range Crystal Unit - FA238 Datasheet}
+      \verb{urlraw}
+      \verb https://br.mouser.com/datasheet/2/137/FA_238_en-932914.pdf
+      \endverb
+      \verb{url}
+      \verb https://br.mouser.com/datasheet/2/137/FA_238_en-932914.pdf
+      \endverb
+    \endentry
+    \entry{AppCad}{online}{}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labeltitlesource}{title}
+      \field{title}{The AppCad Software}
+      \verb{urlraw}
+      \verb https://www.broadcom.com/info/wireless/appcad
+      \endverb
+      \verb{url}
+      \verb https://www.broadcom.com/info/wireless/appcad
       \endverb
     \endentry
     \entry{LGPL}{online}{}

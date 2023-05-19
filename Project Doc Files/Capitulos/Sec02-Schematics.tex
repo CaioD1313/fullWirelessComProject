@@ -110,7 +110,8 @@ measurement. Last but not least, the main block with the microcontroller control
 \subsection{Circuit Diagrams}\label{02Sub:CircuitDiagrams}
 
 We start highlitning the main points of the Main Circuitry, putting important
-design requirements for the properly function of the ESP8266EX.
+design requirements for the properly function of the ESP8266EX. Most of the references 
+were obtained on \cite{ESP8266EX} and \cite{ESP8266HGL}.
 
 \subsubsection{Digital and Analog Supplies Circuitry}\label{02SubSub:DigitalAndAnalogSuppliesCircuitry}
 
@@ -138,7 +139,8 @@ Both Analog and Digital power supply connections can be seen on Figure \ref{02fi
 The reset pin of ESP8266EX is denoted as Pin32 EXT\_RSTB and plays a vital role in the device's 
 operation \cite{ESP8266HGL}. This pin possesses an internal pullup resistor and operates on an active low mechanism. 
 As for Pin7 CHIP\_EN, it functions as the enable pin for ESP8266EX. When held at a low state, ESP8266EX powers 
-off \cite{ESP8266HGL}. Its connections can see on the Figure \ref{02SubSub:RCDelayResetCircuitry}
+off \cite{ESP8266HGL}.  
+Its connections can see on the Figure \ref{02SubSub:RCDelayResetCircuitry}
 shwon in the section (\ref{02SubSub:12kOhmRes}) below.
 
 
@@ -160,9 +162,10 @@ a 12k$\Omega \pm 1\%$ is required.
 \subsubsection{RF Antenna Circuitry}\label{02SubSub:RFAntennaCircuitry}
 
 For the 2.4Ghz RF antenna, in terms of ``abstract'' circuit itself, the only requirements is that the
-the impedance at the output terminal of the ESP8266 PA is $39 + j6 \Omega$, which necessitates a corresponding 
-matched impedance of $39-j6 \Omega$ (from the antenna to the chip). For such implementation,
-see the Figure \ref{02fig:RFAntennaCircuitry} below.
+the impedance at the output terminal of the ESP8266 power amplifier is $39 + j6 \Omega$, which necessitates a corresponding 
+matched impedance of $39-j6 \Omega$ (from the antenna to the chip). Moreover, for the RF PCB design, a 50$\Omega$ impedance is required
+on the track design. For such implementation,
+see the Figure \ref{02fig:RFAntennaCircuitry} below (also, see the section \ref{03Sub:RFAntenna}).
 
 
 
@@ -177,6 +180,14 @@ see the Figure \ref{02fig:RFAntennaCircuitry} below.
 
 \subsubsection{XTAL Circuitry}\label{02SubSub:XTALCircuitry}
 
+ESP8266EX has the capability to support crystal oscillators with frequencies of 40 MHz, 26 MHz, and 24 MHz. 
+In the circuit design, capacitors C4 and C11 are connected to the ground and added to the input and output terminals 
+of the crystal oscillator, respectively. The values of these capacitors can be varied within a range of 6 pF to 22 pF -
+15pF was chosen. It is crucial that the crystal oscillator used has a precision of 
+$\pm$10 PPM (parts per million) to maintain accurate timing and synchronization. For the XTAL chip, the FA238 (26Mhz)
+From Seiko Epson Corporation was chosen \cite{FA238}. The electrical connection for the crystal oscillator is shown
+in Figure \ref{02fig:XTALCircuitry}.
+
 
 \begin{figure}[H]
     \centering
@@ -188,6 +199,8 @@ see the Figure \ref{02fig:RFAntennaCircuitry} below.
 
 \subsubsection{Drive Current Serial Clock RES}\label{02SubSub:DriveCurrentSerialClockRES}
 
+To reduce drive current and eliminates external interruptions, a 200 $\Omega$ is connected to the flashs 
+(Pin21 SD\_CLK and Pin9 MTMS). It is recommended a 0402 resistor package \cite{ESP8266HGL}.
 
 \begin{figure}[H]
     \centering
@@ -212,6 +225,10 @@ blocks are described.
 
 
 \subsubsection{Power Circuitry}\label{02SubSub:PowerCircuitry}
+
+For the power circuitry, a 3.7V battery is used, along with a voltage regulator.
+The AMS1117 \cite{AMS1117} for 3.3V integrated circuit (IC) was utilized to ensure protection and integrity of 
+the power supply.
 
 \begin{figure}[H]
     \centering
@@ -265,13 +282,6 @@ Therefore, the memory can be programmed and erased without any difficulties. Bot
     \caption{\textbf{Temperature measuring circuitry}.}
     \label{02fig:temperatureSensorCircuitry}
 \end{figure}
-
-
-
-\subsection{Components}\label{02Sub:Components}
-
-
-List of componentes, its values, packages, etc
 
 
 

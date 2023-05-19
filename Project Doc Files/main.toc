@@ -15,29 +15,26 @@
 \contentsline {subsubsection}{\numberline {2.3.2}RC Delay Reset Circuitry}{7}{subsubsection.2.3.2}%
 \contentsline {subsubsection}{\numberline {2.3.3}12Kohm RES}{8}{subsubsection.2.3.3}%
 \contentsline {subsubsection}{\numberline {2.3.4}RF Antenna Circuitry}{8}{subsubsection.2.3.4}%
-\contentsline {subsubsection}{\numberline {2.3.5}XTAL Circuitry}{9}{subsubsection.2.3.5}%
+\contentsline {subsubsection}{\numberline {2.3.5}XTAL Circuitry}{8}{subsubsection.2.3.5}%
 \contentsline {subsubsection}{\numberline {2.3.6}Drive Current Serial Clock RES}{9}{subsubsection.2.3.6}%
 \contentsline {subsubsection}{\numberline {2.3.7}Power Circuitry}{10}{subsubsection.2.3.7}%
-\contentsline {subsubsection}{\numberline {2.3.8}Storage Circuitry}{10}{subsubsection.2.3.8}%
-\contentsline {subsubsection}{\numberline {2.3.9}Temperature Sensor Circuitry}{11}{subsubsection.2.3.9}%
-\contentsline {subsection}{\numberline {2.4}Components}{12}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.3.8}Storage Circuitry}{11}{subsubsection.2.3.8}%
+\contentsline {subsubsection}{\numberline {2.3.9}Temperature Sensor Circuitry}{12}{subsubsection.2.3.9}%
 \contentsline {section}{\numberline {3}Printed Circuit Board}{13}{section.3}%
 \contentsline {subsection}{\numberline {3.1}PCB Design}{13}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}PCB Specifications}{13}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}ESP8266EX Power Supply Design}{13}{subsubsection.3.2.1}%
 \contentsline {subsubsection}{\numberline {3.2.2}Layers Design}{13}{subsubsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.3}Reset Track Design}{13}{subsubsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.3}Trace Routing}{14}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Ground Planes}{14}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Tracks and Vias}{14}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}RF Antenna}{14}{subsection.3.6}%
-\contentsline {section}{\numberline {4}Firmware}{15}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Firmware Description}{15}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Firmware Architecture}{15}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Features and Algorithms}{15}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Configurations and Parameters}{15}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Interfaces and Protocols}{15}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {3.2.3}Reset Track Design}{14}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}XTAL - Crystal Oscillator Design}{14}{subsubsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.5}RF Antenna}{14}{subsubsection.3.2.5}%
+\contentsline {section}{\numberline {4}Firmware}{16}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Firmware Description}{16}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Firmware Architecture}{16}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Features and Algorithms}{16}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Configurations and Parameters}{16}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Interfaces and Protocols}{16}{subsection.4.5}%
 \renewcommand {\cftsecleader }{\cftdotfill {\cftdotsep }}
-\contentsline {section}{\numberline {}Referências}{16}{section*.11}%
+\contentsline {section}{\numberline {}Referências}{17}{section*.12}%
 \cftpagenumbersoff {section}
 \cftpagenumberson {section}

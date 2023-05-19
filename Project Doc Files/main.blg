@@ -1,18 +1,17 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[179] biber-MSWIN64:340> INFO - === 
-[239] Biber.pm:419> INFO - Reading 'main.bcf'
-[429] Biber.pm:979> INFO - Found 5 citekeys in bib section 0
-[451] Biber.pm:4419> INFO - Processing section 0
-[469] Biber.pm:4610> INFO - Looking for bibtex file 'bibliography.bib' for section 0
-[543] bibtex.pm:1713> INFO - LaTeX decoding ...
-[558] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
-[583] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[583] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[583] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[583] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
-[595] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[597] bbl.pm:763> INFO - Output to main.bbl
-[598] Biber.pm:131> WARN - Duplicate entry key: 'LGPL' in file 'bibliography.bib', skipping ...
-[598] Biber.pm:131> WARN - Duplicate entry key: 'TMP35' in file 'bibliography.bib', skipping ...
-[598] Biber.pm:133> INFO - WARNINGS: 2
+[182] biber-MSWIN64:340> INFO - === 
+[246] Biber.pm:419> INFO - Reading 'main.bcf'
+[460] Biber.pm:979> INFO - Found 9 citekeys in bib section 0
+[485] Biber.pm:4419> INFO - Processing section 0
+[505] Biber.pm:4610> INFO - Looking for bibtex file 'bibliography.bib' for section 0
+[595] bibtex.pm:1713> INFO - LaTeX decoding ...
+[610] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliography.bib'
+[646] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[646] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[646] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[646] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[666] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[668] bbl.pm:763> INFO - Output to main.bbl
+[669] Biber.pm:131> WARN - Duplicate entry key: 'LGPL' in file 'bibliography.bib', skipping ...
+[669] Biber.pm:133> INFO - WARNINGS: 1

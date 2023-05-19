@@ -15,6 +15,14 @@
 
 \subsection{PCB Specifications}\label{03Sub:PCBSpecifications}
 
+In the realm of electronic product development, PCB design plays a crucial role in ensuring the optimal 
+functionality and performance of microcontroller-based systems. This section will highlight some of the key 
+points covered in the microcontroller's hardware design guidelines \cite{ESP8266HGL}, along with best practices 
+for PCB design. These guidelines provide valuable insights into the recommended approaches for designing the hardware 
+layout, addressing critical aspects such as power supply, signal integrity, component placement, and grounding. 
+By adhering to these guidelines and following established best practices, designers can achieve robust and reliable 
+PCB designs that maximize the microcontroller's potential and minimize potential issues during manufacturing and 
+operation.
 
 
 \subsubsection{ESP8266EX Power Supply Design}\label{02SubSub:PowerSupplyDesign}
@@ -56,23 +64,49 @@ incorporate an RC circuit at this pin \cite{ESP8266HGL} (see section \ref{02SubS
 
 
 
+\subsubsection{XTAL - Crystal Oscillator Design}
 
-\subsection{Trace Routing}\label{03Sub:TraceRouting}
+To ensure proper functioning of the crystal oscillator, it is recommended to position it as close as possible to 
+the XTAL pins, while considering the length of the traces. However, it is crucial to maintain an appropriate distance 
+between the crystal and the chip to avoid any interference. The recommended distance from the MCU is 0.8 mm. 
+This distance helps prevent any potential disruption caused by the crystal's  proximity to the chip. Additionally, it 
+is important to note that there should be no vias present on the input and output traces. This means that the traces 
+should not cross layers, ensuring a clean and uninterrupted signal path for the crystal oscillator. 
+This design consideration helps maintain the integrity of the crystal oscillator's signals and enhances the overall 
+performance of the circuit.
+
+\subsubsection{RF Antenna}\label{03Sub:RFAntenna}
+
+The RF impedance characteristic is 50$\Omega$, which indicates the desired impedance for optimal signal transmission. 
+It is crucial to have a complete ground plane to ensure proper grounding and minimize interference. The RF trace should be kept as 
+short as possible, and it is recommended to have dense ground via stitching surrounding it for isolation purposes. The width of RF 
+lines should be minimized, and additional dense vias should be placed around them. A $\pi$-type matching circuitry (see the PCB
+file .kicad\_pcb on the ``KiCad Projeto Tractian'' folder).
+should be allocated 
+on the RF trace and positioned in close proximity to the RF Pin2. It is important to avoid the use of vias for the RF trace. When routing 
+the RF trace, a 135° angle is preferred, or circular arcs can be utilized for trace bends. Furthermore, the RF antenna should be placed at 
+a distance from high-frequency transmitting devices, such as crystal oscillators, DDR, and specific high-frequency clocks (for example,
+SPI Clocks). Additionally, it is essential to keep USB ports, USB-to-UART signal chips, and UART signal lines (including traces, vias, 
+test points, headers, etc.) as far away from the antenna as possible. More specific iformations can be seen on \cite{ESP8266HGL}.
+For the circuitry previous to the antenna, see the Figure \ref{02fig:RFAntennaCircuitry}. For the its PCB design, the
+Texas SWRA117D 2.4GHz - Left \cite{TexasRFAntenna} was used. \\ 
+
+For the  50$\Omega$ impedance on track design, the following values were used (Figure \ref{02fig:50ohmImpedanceDesignA}). The calculation was done using the 
+\textbf{AppCad} \textit{software} \cite{AppCad}. Notice that the inputed values are in mils.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.6]{imagens/50ohmImpedanceDesignA.png}
+    \caption{\textbf{Calculation of the 50$\Omega$ impedance - Coplanar Waveguide}.}
+    \label{02fig:50ohmImpedanceDesignA}
+\end{figure}
 
 
 
 
-\subsection{Ground Planes}\label{03Sub:Ground planes}
 
 
-\subsection{Tracks and Vias}\label{03Sub:HolesAndVias}
-
-
-
-\subsection{RF Antenna}\label{03Sub:RFAntenna}
-
-\cite{ESP8266HGL}
-\ref{02fig:RFAntennaCircuitry}
 
 
 
