@@ -9,7 +9,7 @@ This project was developed as part of the interview process for the Firmware Eng
 - **Datasheets**: This folder contains the datasheets used for the development of the project.
 - **Schematics and PCB files**: The "KiCad Projeto Tractian" folder includes the schematics and PCB files related to the project.
 - **Firmware**: The "Firmware_fullWirelessSystem" folder contains the firmware code for the device.
-- **Technical Documentation**: The project's complete technical documentation can be found in the root directory as the file "Project's Technical Documentation".
+- **Technical Documentation**: The project's complete technical documentation can be found in the root directory as the file "Project's Technical Documentation.pdf".
 
 Feel free to explore the respective folders for more details on each aspect of the project.
 
